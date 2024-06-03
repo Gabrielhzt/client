@@ -37,6 +37,9 @@ const Home = () => {
                     </div>
                 ))}
             </section>
+            <section className='banner'>
+                <img src='https://www.vanmoof.com/sites/default/files/2023-02/CTA-D-H01-v2.jpg' className='banner-img' />
+            </section>
         </div>
     )
 }
