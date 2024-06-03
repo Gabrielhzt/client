@@ -1,0 +1,22 @@
+.menu-2 {
+    cursor: pointer;
+}
+
+.links-2 {
+    position: absolute;
+    background-color: #F5F5F5;
+    color: #547586;
+    padding: 20px;
+    right: 50px;
+    top: 100px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 10px;
+}
+
+.icons {
+    display: flex;
+    justify-content: space-around;
+}

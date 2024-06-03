@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import './home.css';
 import { Products } from '../assets/data/productdata';
+import Menu from '../components/menu/menu';
 
 const Home = () => {
     return (
@@ -20,6 +21,9 @@ const Home = () => {
                     <div className='right-nav'>
                         <FontAwesomeIcon icon={faCartShopping} size='xl' />
                         <FontAwesomeIcon icon={faCircleUser} size='xl' />
+                    </div>
+                    <div className='menu'>
+                        <Menu />
                     </div>
                 </nav>
                 <div className='header-title'>

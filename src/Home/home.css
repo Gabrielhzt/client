@@ -63,6 +63,10 @@
     margin-top: 20px;
 }
 
+.menu {
+    display: none;
+}
+
 /* Product Section */
 
 .products {
@@ -154,4 +158,21 @@ footer {
 
 footer h2 {
     font-size: 35px;
+}
+
+/* Responsive Home Page */
+
+@media (max-width: 1000px) {
+    
+    .links {
+        display: none;
+    }
+    
+    .right-nav {
+        display: none;
+    }
+    
+    .menu {
+        display: flex;
+    }
 }
