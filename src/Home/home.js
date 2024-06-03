@@ -40,6 +40,10 @@ const Home = () => {
             <section className='banner'>
                 <img src='https://www.vanmoof.com/sites/default/files/2023-02/CTA-D-H01-v2.jpg' className='banner-img' />
             </section>
+            <footer>
+                <h2>VoltBike</h2>
+                <p>© 2024 VoltBike - Designed with passion by Gabriel Hazout. All rights reserved.</p>
+            </footer>
         </div>
     )
 }
