@@ -1,0 +1,64 @@
+/* Header */
+
+.home-header {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url('../assets/images/header.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 30px 50px;
+}
+
+.home-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    height: 60px;
+}
+
+.home-nav h1 {
+    font-size: 2em;
+}
+
+.left-nav {
+    display: flex;
+    align-items: baseline;
+    gap: 40px;
+}
+
+.links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.links li {
+    list-style: none;
+}
+
+.right-nav {
+    display: flex;
+    gap: 20px;
+}
+
+.header-title {
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    color: #fff;
+}
+
+.header-title h1 {
+    font-size: 35px;
+}
+
+.btn {
+    padding: 7px 14px;
+    background-color: #fff;
+    border: 1px solid #fff;
+    border-radius: 30px;
+    color: #547586;
+    margin-top: 20px;
+}
