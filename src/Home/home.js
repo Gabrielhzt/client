@@ -2,6 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import './home.css';
+import { Products } from '../assets/data/productdata';
 
 const Home = () => {
     return (
@@ -27,6 +28,15 @@ const Home = () => {
                     <button className='btn'>Learn more</button>
                 </div>
             </header>
+            <section className='products'>
+                {Products.map((product) => (
+                    <div key={product.id} className={product.id !== 'VB3' ? 'img' : 'img-2'} style={{ backgroundImage: `url(${product.img})` }}>
+                        <h3>{product.name}</h3>
+                        <p>${product.price}</p>
+                        <button className='btn-product'>Buy it</button>
+                    </div>
+                ))}
+            </section>
         </div>
     )
 }
