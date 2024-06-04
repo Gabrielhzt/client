@@ -34,3 +34,23 @@ a.active {
     background-color: #52788C;
     color: #fff;
 }
+
+@media (max-width: 1000px) {
+    
+    .account {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+        'nav'
+        'content'
+        ;
+        margin: 30px;
+    }
+
+    .account-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 0;
+        gap: 20px;
+    }
+}
