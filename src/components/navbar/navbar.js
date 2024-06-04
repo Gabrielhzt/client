@@ -7,7 +7,7 @@ import { Products } from "../../assets/data/productdata";
 
 const Navbar = () => {
     return (
-        <nav className='home-nav'>
+        <nav className='home-nav2'>
             <div className='left-nav'>
                 <h1>Voltbike</h1>
                 <ul className='links'>
