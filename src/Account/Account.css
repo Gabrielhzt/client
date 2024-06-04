@@ -1,0 +1,36 @@
+.account {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-areas:
+    'nav content'
+    ;
+}
+
+.account-nav {
+    grid-area: nav;
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+    gap: 20px;
+}
+
+.content {
+    grid-area: content;
+}
+
+a {
+    border: 2px solid #52788C;
+    border-radius: 5px;
+    background-color: transparent;
+    padding: 10px;
+    width: 180px;
+    text-align: start;
+    color: #52788C;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a.active {
+    background-color: #52788C;
+    color: #fff;
+}
