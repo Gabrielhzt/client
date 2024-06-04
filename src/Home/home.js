@@ -4,6 +4,7 @@ import { faCartShopping, faCircleUser } from '@fortawesome/free-solid-svg-icons'
 import './home.css';
 import { Products } from '../assets/data/productdata';
 import Menu from '../components/menu/menu';
+import { NavLink } from 'react-router-dom';
 
 const Home = () => {
     return (
@@ -11,16 +12,18 @@ const Home = () => {
             <header className='home-header'>
                 <nav className='home-nav'>
                     <div className='left-nav'>
-                        <h1>Voltbike</h1>
+                        <NavLink to={'/'} className={'logo'}><h1>Voltbike</h1></NavLink>
                         <ul className='links'>
-                            <li>VoltBike Pulse</li>
-                            <li>VoltBike Pulse</li>
-                            <li>VoltBike Pulse</li>
+                            {Products.map((product) => (
+                                <NavLink to={`/product/${product.id}`}>
+                                    <li key={product.id}>{product.name}</li>
+                                </NavLink>
+                            ))}
                         </ul>
                     </div>
                     <div className='right-nav'>
-                        <FontAwesomeIcon icon={faCartShopping} size='xl' />
-                        <FontAwesomeIcon icon={faCircleUser} size='xl' />
+                    <NavLink to={'/cart'}><FontAwesomeIcon icon={faCartShopping} size='xl' color="#fff" /></NavLink>
+                <NavLink to={'/account/personal-info'}><FontAwesomeIcon icon={faCircleUser} size='xl' color="#fff" /></NavLink>
                     </div>
                     <div className='menu'>
                         <Menu />

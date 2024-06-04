@@ -18,7 +18,7 @@
     grid-area: content;
 }
 
-a {
+.account-nav a {
     border: 2px solid #52788C;
     border-radius: 5px;
     background-color: transparent;
@@ -30,7 +30,7 @@ a {
     text-decoration: none;
 }
 
-a.active {
+.account-nav a.active {
     background-color: #52788C;
     color: #fff;
 }

@@ -12,6 +12,11 @@
     font-size: 2em;
 }
 
+.logo {
+    text-decoration: none;
+    color: #fff;
+}
+
 .left-nav {
     display: flex;
     align-items: baseline;
@@ -26,6 +31,16 @@
 
 .links li {
     list-style: none;
+    color: #fff;
+}
+
+.links a {
+    text-decoration: none;
+}
+
+.links a.active {
+    text-decoration: underline;
+    color: #fff;
 }
 
 .right-nav {
