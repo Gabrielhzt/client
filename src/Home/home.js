@@ -4,7 +4,7 @@ import { faCartShopping, faCircleUser } from '@fortawesome/free-solid-svg-icons'
 import './home.css';
 import { Products } from '../assets/data/productdata';
 import Menu from '../components/menu/menu';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const Home = () => {
     return (
@@ -40,7 +40,7 @@ const Home = () => {
                     <div key={product.id} className={product.id !== 'VB3' ? 'img' : 'img-2'} style={{ backgroundImage: `url(${product.img})` }}>
                         <h3>{product.name}</h3>
                         <p>${product.price}</p>
-                        <button className='btn-product'>Buy it</button>
+                        <Link to={`/product/${product.id}`}><button className='btn-product'>Buy it</button></Link>
                     </div>
                 ))}
             </section>

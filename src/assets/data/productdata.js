@@ -27,7 +27,7 @@ export const Products = [
         price: 1999
     },
     {
-        id: 'VB3',
+        id: 'VB4',
         img: 'https://www.vanmoof.com/sites/default/files/2022-04/desktop-panel-v.jpg',
         product_img: 'https://www.vanmoof.com/sites/default/files/2021-10/PDP-Gallery-1-Desktop.jpg',
         name: 'VB Spark',

@@ -152,6 +152,7 @@
     border: 1px solid #547586;
     background-color: #547586;
     color: #fff;
+    cursor: pointer;
 }
 
 .img-2 .btn-product {
@@ -161,6 +162,7 @@
     border: 1px solid #fff;
     background-color: #fff;
     color: #0F212D;
+    cursor: pointer;
 }
 
 @media (max-width: 1190px) and (min-width: 1060px) {
