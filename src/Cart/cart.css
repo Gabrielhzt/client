@@ -88,3 +88,29 @@
     border-radius: 20px;
     cursor: pointer;
 }
+
+@media (max-width: 700px) {
+    
+    .img-cart {
+        width: 90px;
+        height: 60px;
+    }
+
+    .text-product h3 {
+        font-size: 17px;
+    }
+    
+    .text-product p {
+        font-size: 10px;
+    }
+
+    .remove {
+        padding: 1px 10px;
+        background-color: transparent;
+        border: 1px solid #52788C;
+        color: #52788C;
+        border-radius: 20px;
+        font-size: 10px;
+        cursor: pointer;
+    }
+}
