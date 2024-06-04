@@ -1,0 +1,37 @@
+.top-history {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 2px solid #000;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.top-history h2 {
+    font-size: 18px;
+}
+
+.top-history p {
+    font-size: 15px;
+}
+
+.order-product {
+    background-color: #F3F4F6;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.img-history {
+    width: 100px;
+    height: 60px;
+    object-fit: cover;
+}
+
+.gap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
