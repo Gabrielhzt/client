@@ -1,4 +1,11 @@
 .menu-2 {
+    
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.icon {
     cursor: pointer;
 }
 
@@ -16,7 +23,16 @@
     border-radius: 10px;
 }
 
+.links-2 a {
+    color: #547586;
+    text-decoration: none;
+}
+
 .icons {
     display: flex;
     justify-content: space-around;
+}
+
+.icons a {
+    color: #547586;
 }

@@ -30,14 +30,14 @@ const Home = () => {
                     </div>
                 </nav>
                 <div className='header-title'>
-                    <h1>Ride into the Future with WattWheels</h1>
+                    <h1>Ride into the Future with VoltBike</h1>
                     <p>Your Eco-Friendly Electric Bike Destination!</p>
                     <button className='btn'>Learn more</button>
                 </div>
             </header>
             <section className='products'>
                 {Products.map((product) => (
-                    <div key={product.id} className={product.id !== 'VB3' ? 'img' : 'img-2'} style={{ backgroundImage: `url(${product.img})` }}>
+                    <div key={product.id} className={product.id === 'VB4' || product.id === 'VB3' ? 'img-2' : 'img'} style={{ backgroundImage: `url(${product.img})` }}>
                         <h3>{product.name}</h3>
                         <p>${product.price}</p>
                         <Link to={`/product/${product.id}`}><button className='btn-product'>Buy it</button></Link>
