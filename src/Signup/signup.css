@@ -1,0 +1,33 @@
+.all-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.square {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border: 2px solid #52788C;
+    border-radius: 10px;
+    padding: 40px;
+}
+
+.square h1 {
+    text-align: center;
+}
+
+input {
+    border: 2px solid #52788C;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.submit {
+    background-color: #52788C;
+    color: #fff;
+    border: 1px solid #52788C;
+    border-radius: 5px;
+    padding: 4px 10px;
+}
