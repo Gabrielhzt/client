@@ -9,6 +9,7 @@ import Info from './Account/Info/info';
 import History from './Account/History/history';
 import Wishlist from './Account/Wishlist/wishlist';
 import Signup from './Signup/signup';
+import Login from './Login/login';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path='wishlist' element={<Wishlist />} />
         </Route>
         <Route path='/signup' element={<Signup />} />
+        <Route path='/login' element={<Login />} />
       </Routes>
     </Router>
   );

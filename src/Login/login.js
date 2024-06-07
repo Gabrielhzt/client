@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import './signup.css';
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import Navbar from "../components/navbar/navbar";
 
-const Signup = () => {
+const Login = () => {
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -14,7 +13,6 @@ const Signup = () => {
         console.log("Email:", email);
         console.log("Password:", password);
     };
-
     return (
         <div>
             <Navbar />
@@ -54,7 +52,7 @@ const Signup = () => {
                         <br />
                         <button type="submit" className="submit">Sign Up</button>
                     </form>
-                    <p>Already have an account ? <Link to={'/login'}>Login</Link></p>
+                    <p>New here ? <Link to={'/signup'}>Create an account</Link></p>
                 </div>
             </div>
             <footer>
@@ -62,7 +60,7 @@ const Signup = () => {
                 <p>© 2024 VoltBike - Designed with passion by Gabriel Hazout. All rights reserved.</p>
             </footer>
         </div>
-    );
-};
+    )
+}
 
-export default Signup;
+export default Login;
