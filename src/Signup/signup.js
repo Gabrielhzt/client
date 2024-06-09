@@ -1,19 +1,31 @@
 import React, { useState } from "react";
 import './signup.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Navbar from "../components/navbar/navbar";
+import axios from "axios";
 
 const Signup = () => {
+    const navigate = useNavigate();
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log("Full Name:", fullName);
-        console.log("Email:", email);
-        console.log("Password:", password);
-    };
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        
+        try {
+          const response = await axios.post('http://localhost:4000/auth/register', {
+            full_name: fullName,
+            email: email,
+            password: password
+          });
+    
+          navigate('/login')
+          console.log(response.data.message);
+        } catch (error) {
+          console.error('Error during registration:', error);
+        }
+      };
 
     return (
         <div>

@@ -1,35 +1,42 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/navbar/navbar";
+import axios from "axios";
 
 const Login = () => {
-    const [fullName, setFullName] = useState("");
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState('');
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log("Full Name:", fullName);
-        console.log("Email:", email);
-        console.log("Password:", password);
-    };
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        
+        try {
+          const response = await axios.post('http://localhost:4000/auth/login', {
+            email: email,
+            password: password
+          });
+
+          const token = response.data.token;
+          localStorage.setItem('token', token);
+    
+          setErrorMessage('');
+          console.log(response.data.message);
+          navigate('/');
+        } catch (error) {
+          console.error('Error during login:', error.response.data.message);
+          setErrorMessage(error.response.data.message);
+        }
+      };
+
     return (
         <div>
             <Navbar />
             <div className="all-page">
                 <div className="square">
-                    <h1>Sign up</h1>
+                    <h1>Login</h1>
                     <form onSubmit={handleSubmit}>
-                        <div>
-                            <label>Full name</label>
-                            <br />
-                            <input 
-                                type="text" 
-                                value={fullName} 
-                                onChange={(e) => setFullName(e.target.value)} 
-                            />
-                        </div>
-                        <br />
                         <div>
                             <label>Email</label>
                             <br />
@@ -50,6 +57,7 @@ const Login = () => {
                             />
                         </div>
                         <br />
+                        {errorMessage}
                         <button type="submit" className="submit">Sign Up</button>
                     </form>
                     <p>New here ? <Link to={'/signup'}>Create an account</Link></p>

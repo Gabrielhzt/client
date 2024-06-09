@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import './product.css';
 import Navbar from '../components/navbar/navbar';
@@ -8,7 +8,7 @@ const Product = ({ loading, products, error }) => {
   const productId = parseInt(id);
   const product = products.find((product) => product.product_id === productId);
 
-  if (!product) {
+  if (error) {
     return <div>Product not found</div>;
   }
 
