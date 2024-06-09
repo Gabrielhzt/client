@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faCartShopping, faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import './menu.css'
-import { Products } from "../../assets/data/productdata";
 import { NavLink } from "react-router-dom";
 
-const Menu = () => {
+const Menu = ({ loading, products, error }) => {
     const [open, setOpen] = useState(false)
 
     return (
@@ -16,9 +15,9 @@ const Menu = () => {
             </div>
             {open ? (
                 <ul className='links-2'>
-                    {Products.map((product)=> (
-                        <NavLink to={`/product/${product.id}`}>
-                            <li key={product.id}>{product.name}</li>
+                    {products.map((product)=> (
+                        <NavLink to={`/product/${product.id}`} key={product.id}>
+                            <li>{product.name}</li>
                         </NavLink>
                     ))}
                     <li className="icons">

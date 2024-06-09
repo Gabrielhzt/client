@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import Menu from "../menu/menu";
 import './navbar.css';
-import { Products } from "../../assets/data/productdata";
 import { NavLink } from 'react-router-dom'
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts } from "../../features/products/productSlice";
 
 const Navbar = () => {
+    const { loading, products, error } = useSelector((state) => state.products);
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchProducts())
+    }, [dispatch])
+
     return (
         <nav className='home-nav2'>
             <div className='left-nav'>
@@ -14,7 +22,7 @@ const Navbar = () => {
                     <h1>Voltbike</h1>
                 </NavLink>
                 <ul className='links'>
-                    {Products.map((product) => (
+                    {products.map((product) => (
                         <NavLink to={`/product/${product.id}`}>
                             <li key={product.id}>{product.name}</li>
                         </NavLink>

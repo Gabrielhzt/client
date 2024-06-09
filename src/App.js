@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './Home/home';
@@ -10,12 +10,21 @@ import History from './Account/History/history';
 import Wishlist from './Account/Wishlist/wishlist';
 import Signup from './Signup/signup';
 import Login from './Login/login';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProducts } from './features/products/productSlice';
 
 function App() {
+  const { loading, products, error } = useSelector((state) => state.products);
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(fetchProducts())
+  }, [dispatch])
+
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<Home loading={loading} products={products} error={error} />} />
         <Route path='/product/:id' element={<Product />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/account/' element={<Account />}>
