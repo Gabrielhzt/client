@@ -23,7 +23,7 @@ const Navbar = () => {
                 </NavLink>
                 <ul className='links'>
                     {products.map((product) => (
-                        <NavLink to={`/product/${product.id}`}>
+                        <NavLink to={`/product/${product.product_id}`}>
                             <li key={product.id}>{product.name}</li>
                         </NavLink>
                     ))}

@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Products } from '../assets/data/productdata';
 import './product.css';
 import Navbar from '../components/navbar/navbar';
 
-const Product = () => {
+const Product = ({ loading, products, error }) => {
   const { id } = useParams();
-  const product = Products.find((product) => product.id === id);
+  const productId = parseInt(id);
+  const product = products.find((product) => product.product_id === productId);
 
   if (!product) {
     return <div>Product not found</div>;
