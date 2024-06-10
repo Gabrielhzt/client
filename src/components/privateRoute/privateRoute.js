@@ -1,6 +1,5 @@
 import React from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 const PrivateRoute = ({ loadingUser, user, errorUser }) => {
 
@@ -8,11 +7,11 @@ const PrivateRoute = ({ loadingUser, user, errorUser }) => {
         return <div>Loading...</div>;
     }
 
-    if (errorUser || user.length === 0) {
-        return <Navigate to="/login" />;
+    if (user.full_name) {
+        return <Outlet />;
     }
 
-    return <Outlet />;
+    return <Navigate to="/login" />;
 };
 
 export default PrivateRoute;

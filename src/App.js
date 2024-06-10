@@ -13,7 +13,8 @@ import Login from './Login/login';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from './features/products/productSlice';
 import PrivateRoute from './components/privateRoute/privateRoute';
-import { fetchUserInfo } from './features/user/userSlice';
+import { fetchUserInfo, updateUserInfo } from './features/user/userSlice';
+import AuthRoute from './components/authRoute/authRoute';
 
 function App() {
   const { loading, products, error } = useSelector((state) => state.products);
@@ -23,8 +24,7 @@ function App() {
   useEffect(() => {
     dispatch(fetchProducts())
     dispatch(fetchUserInfo())
-    console.log(user)
-  }, [dispatch])
+  }, [1])
 
   return (
     <Router>
@@ -39,8 +39,10 @@ function App() {
             <Route path="wishlist" element={<Wishlist />} />
           </Route>
         </Route>
-        <Route path='/signup' element={<Signup />} />
-        <Route path='/login' element={<Login />} />
+        <Route element={<AuthRoute loadingUser={loadingUser} user={user} errorUser={errorUser} />}>
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/login' element={<Login />} />
+        </Route>
       </Routes>
     </Router>
   );

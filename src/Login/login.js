@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/navbar/navbar";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { fetchUserInfo } from "../features/user/userSlice";
 
 const Login = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState('');
@@ -21,14 +24,14 @@ const Login = () => {
           const token = response.data.token;
           localStorage.setItem('token', token);
     
+          dispatch(fetchUserInfo());
           setErrorMessage('');
-          console.log(response.data.message);
           navigate('/');
         } catch (error) {
           console.error('Error during login:', error.response.data.message);
           setErrorMessage(error.response.data.message);
         }
-      };
+    };
 
     return (
         <div>

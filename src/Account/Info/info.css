@@ -16,6 +16,25 @@
     cursor: pointer;
 }
 
+.flex {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.here {
+    display: flex;
+}
+
+.nothere {
+    display: none;
+}
+
+.flex input {
+    padding: 5px;
+    font-size: 14px;
+}
+
 @media (max-width: 1000px) {
 
     .info {

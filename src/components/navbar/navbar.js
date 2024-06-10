@@ -34,7 +34,7 @@ const Navbar = () => {
                 <NavLink to={'/account/personal-info'}><FontAwesomeIcon icon={faCircleUser} size='xl' color="#fff" /></NavLink>
             </div>
             <div className='menu'>
-                <Menu />
+                <Menu loading={loading} products={products} error={error} />
             </div>
         </nav>
     )
