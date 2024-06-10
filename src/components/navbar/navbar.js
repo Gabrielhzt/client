@@ -23,9 +23,11 @@ const Navbar = () => {
                 </NavLink>
                 <ul className='links'>
                     {products.map((product) => (
-                        <NavLink to={`/product/${product.product_id}`} key={product.id}>
-                            <li>{product.name}</li>
-                        </NavLink>
+                        <li key={product.product_id}>
+                            <NavLink to={`/product/${product.product_id}`}>
+                                {product.name}
+                            </NavLink>
+                        </li>
                     ))}
                 </ul>
             </div>

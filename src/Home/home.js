@@ -15,9 +15,11 @@ const Home = ({ loading, products, error }) => {
                         <NavLink to={'/'} className={'logo'}><h1>Voltbike</h1></NavLink>
                         <ul className='links'>
                             {products.map((product) => (
-                                <NavLink to={`/product/${product.product_id}`} key={product.id}>
-                                    <li>{product.name}</li>
-                                </NavLink>
+                                <li key={product.product_id}>
+                                    <NavLink to={`/product/${product.product_id}`}>
+                                        {product.name}
+                                    </NavLink>
+                                </li>
                             ))}
                         </ul>
                     </div>
@@ -40,7 +42,7 @@ const Home = ({ loading, products, error }) => {
                 {!loading && products.length ? (
                     <section className='products'>
                         {products.map((product) => (
-                            <div key={product.id} className={product.name === 'VB Spark' || product.name === 'VB Evo' ? 'img-2' : 'img'} style={{ backgroundImage: `url(${product.img})` }}>
+                            <div key={product.product_id} className={product.name === 'VB Spark' || product.name === 'VB Evo' ? 'img-2' : 'img'} style={{ backgroundImage: `url(${product.img})` }}>
                                 <h3>{product.name}</h3>
                                 <p>${product.price}</p>
                                 <Link to={`/product/${product.product_id}`}><button className='btn-product'>Buy it</button></Link>

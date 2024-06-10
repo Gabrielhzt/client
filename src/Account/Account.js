@@ -21,7 +21,6 @@ const Account = () => {
             })
             localStorage.removeItem('token');
             dispatch(fetchUserInfo())
-            console.log("good")
             navigate('/')
         } catch (error) {
             console.error(error)

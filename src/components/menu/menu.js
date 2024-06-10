@@ -16,9 +16,11 @@ const Menu = ({ loading, products, error }) => {
             {open ? (
                 <ul className='links-2'>
                     {products.map((product)=> (
-                        <NavLink to={`/product/${product.product_id}`} key={product.id}>
-                            <li>{product.name}</li>
-                        </NavLink>
+                        <li key={product.product_id}>
+                            <NavLink to={`/product/${product.product_id}`}>
+                                {product.name}
+                            </NavLink>  
+                        </li>
                     ))}
                     <li className="icons">
                         <NavLink to={'/account/personal-info'}><FontAwesomeIcon icon={faCircleUser} size='lg' /></NavLink>

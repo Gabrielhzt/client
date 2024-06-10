@@ -31,8 +31,9 @@
     gap: 20px;
 }
 
-.links li {
+.links li a {
     list-style: none;
+    color: #fff;
 }
 
 .right-nav {
