@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './product.css';
 import Navbar from '../components/navbar/navbar';
@@ -6,9 +6,15 @@ import Navbar from '../components/navbar/navbar';
 const Product = ({ loading, products, error }) => {
   const { id } = useParams();
   const productId = parseInt(id);
-  const product = products.find((product) => product.product_id === productId);
 
-  if (error) {
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    const foundProduct = products.find((product) => product.product_id === productId);
+    setProduct(foundProduct);
+  }, [products, productId]);
+
+  if (error || !product) {
     return <div>Product not found</div>;
   }
 

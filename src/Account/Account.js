@@ -1,10 +1,33 @@
 import React from "react";
-import { Outlet } from "react-router";
+import {  Outlet, useNavigate } from "react-router";
 import { NavLink } from "react-router-dom";
 import './Account.css';
 import Navbar from "../components/navbar/navbar";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { fetchUserInfo } from "../features/user/userSlice";
 
 const Account = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const handleLogout = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            await axios.post('http://localhost:4000/user/logout', token, {
+                headers: {
+                    'Authorization': token
+                }
+            })
+            localStorage.removeItem('token');
+            dispatch(fetchUserInfo())
+            console.log("good")
+            navigate('/')
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     return (
         <div>
             <Navbar />
@@ -19,6 +42,9 @@ const Account = () => {
                     <NavLink to={'wishlist'}>
                         Wishlist
                     </NavLink>
+                    <button className="logout" onClick={handleLogout}>
+                        Logout
+                    </button>
                 </div>
                 <div className="content">
                     <Outlet />

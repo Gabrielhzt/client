@@ -13,7 +13,7 @@ import Login from './Login/login';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from './features/products/productSlice';
 import PrivateRoute from './components/privateRoute/privateRoute';
-import { fetchUserInfo, updateUserInfo } from './features/user/userSlice';
+import { fetchUserInfo } from './features/user/userSlice';
 import AuthRoute from './components/authRoute/authRoute';
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
   useEffect(() => {
     dispatch(fetchProducts())
     dispatch(fetchUserInfo())
-  }, [1])
+  }, [dispatch])
 
   return (
     <Router>
