@@ -31,6 +31,18 @@ export const updateQuantity = createAsyncThunk('cart/updateQuantity', async ({ o
         .then(() => ({ orderDetailId, quantity }));
 })
 
+export const removeItem = createAsyncThunk('cart/removeItem', async (orderDetailId) => {
+    const token = localStorage.getItem('token');
+    return await axios
+        .delete('http://localhost:4000/orders/remove', {
+            data: { order_detail_id: orderDetailId }, // Pass data in the body
+            headers: {
+                'Authorization': token
+            }
+        })
+        .then((response) => response.data);
+});
+
 const cartSlice = createSlice({
     name: 'cart',
     initialState,
@@ -63,6 +75,17 @@ const cartSlice = createSlice({
         builder.addCase(updateQuantity.rejected, (state, action) => {
             state.updatingQuantity = false;
             state.errorUpdate = action.error.message || 'Failed to update quantity';
+        })
+        builder.addCase(removeItem.pending, (state) => {
+            state.loadingCart = true;
+        })
+        builder.addCase(removeItem.fulfilled, (state, action) => {
+            state.loadingCart = false;
+            state.errorCart = '';
+        })
+        builder.addCase(removeItem.rejected, (state, action) => {
+            state.loadingCart = false;
+            state.errorCart = action.error.message;
         })
     }
 })

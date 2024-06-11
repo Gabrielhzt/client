@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import './cart.css';
 import { useDispatch } from 'react-redux';
-import { fetchCart, updateQuantity } from '../features/cart/cartSlice';
+import { fetchCart, removeItem, updateQuantity } from '../features/cart/cartSlice';
 
 const Cart = ({ loadingCart, cart, errorCart }) => {
     const dispatch = useDispatch();
@@ -24,6 +24,11 @@ const Cart = ({ loadingCart, cart, errorCart }) => {
             dispatch(fetchCart())
         }
     }
+
+    const handleRemoveItem = (id) => {
+        dispatch(removeItem(id))
+        dispatch(fetchCart())
+    }
     
     return (
         <div>
@@ -40,7 +45,7 @@ const Cart = ({ loadingCart, cart, errorCart }) => {
                                         <h3>{item.name}</h3>
                                         <p>${item.price}</p>
                                     </div>
-                                    <button className='remove'>Remove</button>
+                                    <button className='remove' onClick={() => handleRemoveItem(item.order_detail_id)}>Remove</button>
                                 </div>
                             </div>
                             <div className='number'>
