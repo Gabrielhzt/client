@@ -4,47 +4,33 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import './cart.css';
 
-const Cart = () => {
+const Cart = ({ loadingCart, cart, errorCart }) => {
+    
     return (
         <div>
             <Navbar />
             <div className='cart'>
                 <h1>Your Cart</h1>
                 <div className='items'>
-                    <div className='item'>
-                        <div className='info-product'>
-                            <img src='https://www.vanmoof.com/sites/default/files/2023-03/PDP-D-Carousel-S5-Light-01_0.jpg' alt='product' className='img-cart' />
-                            <div className='text-product'>
-                                <div>
-                                    <h3>VoltBike Boost</h3>
-                                    <p>$1999</p>
+                    {cart.map((item) => (
+                        <div className='item' key={item.product_id}>
+                            <div className='info-product'>
+                                <img src='https://www.vanmoof.com/sites/default/files/2023-03/PDP-D-Carousel-S5-Light-01_0.jpg' alt='product' className='img-cart' />
+                                <div className='text-product'>
+                                    <div>
+                                        <h3>{item.name}</h3>
+                                        <p>${item.price}</p>
+                                    </div>
+                                    <button className='remove'>Remove</button>
                                 </div>
-                                <button className='remove'>Remove</button>
+                            </div>
+                            <div className='number'>
+                                <FontAwesomeIcon icon={faChevronUp} />
+                                <p>{item.quantity}</p>
+                                <FontAwesomeIcon icon={faChevronDown} />
                             </div>
                         </div>
-                        <div className='number'>
-                            <FontAwesomeIcon icon={faChevronUp} />
-                            <p>1</p>
-                            <FontAwesomeIcon icon={faChevronDown} />
-                        </div>
-                    </div>
-                    <div className='item'>
-                        <div className='info-product'>
-                            <img src='https://www.vanmoof.com/sites/default/files/2023-03/PDP-D-Carousel-S5-Light-01_0.jpg' alt='product' className='img-cart' />
-                            <div className='text-product'>
-                                <div>
-                                    <h3>VoltBike Boost</h3>
-                                    <p>$1999</p>
-                                </div>
-                                <button className='remove'>Remove</button>
-                            </div>
-                        </div>
-                        <div className='number'>
-                            <FontAwesomeIcon icon={faChevronUp} />
-                            <p>1</p>
-                            <FontAwesomeIcon icon={faChevronDown} />
-                        </div>
-                    </div>
+                    ))}
                 </div>
                 <div className='total'>
                     <h2>Total</h2>
