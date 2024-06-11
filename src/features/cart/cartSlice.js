@@ -4,7 +4,9 @@ import axios from 'axios';
 const initialState = {
     loadingCart: false,
     cart: [],
-    errorCart: ''
+    errorCart: '',
+    updatingQuantity: false,
+    errorUpdate: ''
 }
 
 export const fetchCart = createAsyncThunk('cart/fetchCart', async () => {
@@ -16,6 +18,17 @@ export const fetchCart = createAsyncThunk('cart/fetchCart', async () => {
             }
         })
         .then((response) => response.data)
+})
+
+export const updateQuantity = createAsyncThunk('cart/updateQuantity', async ({ orderDetailId, quantity }) => {
+    const token = localStorage.getItem('token');
+    return await axios
+        .put('http://localhost:4000/orders/quantity', { orderDetailId, quantity }, {
+            headers: {
+                'Authorization': token
+            }
+        })
+        .then(() => ({ orderDetailId, quantity }));
 })
 
 const cartSlice = createSlice({
@@ -34,6 +47,22 @@ const cartSlice = createSlice({
             state.loadingCart = false;
             state.cart = [];
             state.errorCart = action.error.message;
+        })
+        builder.addCase(updateQuantity.pending, (state) => {
+            state.updatingQuantity = true;
+        })
+        builder.addCase(updateQuantity.fulfilled, (state, action) => {
+            state.updatingQuantity = false;
+            const { orderDetailId, quantity } = action.payload;
+            const item = state.cart.find(item => item.orders_detail_id === orderDetailId);
+            if (item) {
+                item.quantity = quantity;
+            }
+            state.errorUpdate = '';
+        })
+        builder.addCase(updateQuantity.rejected, (state, action) => {
+            state.updatingQuantity = false;
+            state.errorUpdate = action.error.message || 'Failed to update quantity';
         })
     }
 })

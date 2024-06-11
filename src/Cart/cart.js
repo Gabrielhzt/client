@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../components/navbar/navbar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import './cart.css';
+import { useDispatch } from 'react-redux';
+import { fetchCart, updateQuantity } from '../features/cart/cartSlice';
 
 const Cart = ({ loadingCart, cart, errorCart }) => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchCart())
+      }, [dispatch])
+
+    const incrementQuantity = (orderDetailId, quantity) => {
+        dispatch(updateQuantity({ orderDetailId, quantity: quantity + 1 }));
+        dispatch(fetchCart())
+    }
+
+    const decrementQuantity = (orderDetailId, quantity) => {
+        if (quantity > 1) {
+            dispatch(updateQuantity({ orderDetailId, quantity: quantity - 1 }));
+            dispatch(fetchCart())
+        }
+    }
     
     return (
         <div>
@@ -25,9 +44,13 @@ const Cart = ({ loadingCart, cart, errorCart }) => {
                                 </div>
                             </div>
                             <div className='number'>
-                                <FontAwesomeIcon icon={faChevronUp} />
+                                <div className='quantity' onClick={() => incrementQuantity(item.order_detail_id, item.quantity)}>
+                                    <FontAwesomeIcon icon={faChevronUp} />
+                                </div>
                                 <p>{item.quantity}</p>
-                                <FontAwesomeIcon icon={faChevronDown} />
+                                <div className='quantity' onClick={() => decrementQuantity(item.order_detail_id, item.quantity)}>
+                                    <FontAwesomeIcon icon={faChevronDown} />
+                                </div>
                             </div>
                         </div>
                     ))}
