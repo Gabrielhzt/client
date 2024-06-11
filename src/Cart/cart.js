@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../components/navbar/navbar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
@@ -8,28 +8,38 @@ import { fetchCart, removeItem, updateQuantity } from '../features/cart/cartSlic
 
 const Cart = ({ loadingCart, cart, errorCart }) => {
     const dispatch = useDispatch();
+    const [totalPrice, setTotalPrice] = useState(0); // State to hold the total price
 
     useEffect(() => {
-        dispatch(fetchCart())
-      }, [dispatch])
+        dispatch(fetchCart());
+    }, [dispatch]);
 
     const incrementQuantity = (orderDetailId, quantity) => {
         dispatch(updateQuantity({ orderDetailId, quantity: quantity + 1 }));
-        dispatch(fetchCart())
-    }
+        dispatch(fetchCart());
+    };
 
     const decrementQuantity = (orderDetailId, quantity) => {
         if (quantity > 1) {
             dispatch(updateQuantity({ orderDetailId, quantity: quantity - 1 }));
-            dispatch(fetchCart())
+            dispatch(fetchCart());
         }
-    }
+    };
 
     const handleRemoveItem = (id) => {
-        dispatch(removeItem(id))
-        dispatch(fetchCart())
-    }
-    
+        dispatch(removeItem(id));
+        dispatch(fetchCart());
+    };
+
+    // Calculate total price whenever cart changes
+    useEffect(() => {
+        let total = 0;
+        cart.forEach((item) => {
+            total += item.quantity * item.price;
+        });
+        setTotalPrice(total);
+    }, [cart]);
+
     return (
         <div>
             <Navbar />
@@ -62,7 +72,7 @@ const Cart = ({ loadingCart, cart, errorCart }) => {
                 </div>
                 <div className='total'>
                     <h2>Total</h2>
-                    <p>$2999</p>
+                    <p>${totalPrice.toFixed(2)}</p> {/* Display total price */}
                 </div>
                 <button className='validate'>Validate the order</button>
             </div>
@@ -71,7 +81,7 @@ const Cart = ({ loadingCart, cart, errorCart }) => {
                 <p>© 2024 VoltBike - Designed with passion by Gabriel Hazout. All rights reserved.</p>
             </footer>
         </div>
-    )
-}
+    );
+};
 
 export default Cart;
