@@ -20,7 +20,7 @@ import { fetchCart } from './features/cart/cartSlice';
 function App() {
   const { loading, products, error } = useSelector((state) => state.products);
   const { loadingUser, user, errorUser } = useSelector((state) => state.user);
-  const { loadingCart, cart, errorCart } = useSelector(state => state.cart);
+  const { loadingCart, cart, total, allQuantity, errorCart } = useSelector(state => state.cart);
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -35,7 +35,7 @@ function App() {
         <Route path='/' element={<Home loading={loading} products={products} error={error} />} />
         <Route path='/product/:id' element={<Product loading={loading} products={products} error={error} />} />
         <Route element={<PrivateRoute loadingUser={loadingUser} user={user} errorUser={errorUser} />}>
-          <Route path="/cart" element={<Cart loadingCart={loadingCart} cart={cart} errorCart={errorCart} />} />
+          <Route path="/cart" element={<Cart loadingCart={loadingCart} cart={cart} total={total} allQuantity={allQuantity} errorCart={errorCart} />} />
           <Route path="/account" element={<Account />}>
             <Route path="personal-info" element={<Info loadingUser={loadingUser} user={user} errorUser={errorUser} />} />
             <Route path="order-history" element={<History />} />
