@@ -48,6 +48,23 @@
     gap: 20px;
 }
 
+.circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50px;
+    right: 65px;
+    background-color: #162832;
+    padding: 2px 6px;
+    border-radius: 50px;
+    font-size: 10px;
+}
+
+.circle p {
+    font-size: 12px;
+}
+
 @media (max-width: 1000px) {
 
     .links {

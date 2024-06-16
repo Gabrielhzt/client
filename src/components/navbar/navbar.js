@@ -3,17 +3,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import Menu from "../menu/menu";
 import './navbar.css';
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../features/products/productSlice";
+import { fetchCart, getTotalItems } from "../../features/cart/cartSlice";
 
 const Navbar = () => {
     const { loading, products, error } = useSelector((state) => state.products);
-    const dispatch = useDispatch()
+    const { totalItemsLoading, totalItems, cart, errorItems } = useSelector((state) => state.cart);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchProducts())
-    }, [dispatch])
+        dispatch(fetchProducts());
+        dispatch(fetchCart());
+    }, [dispatch]);
+
+    useEffect(() => {
+        if (cart.length > 0) {
+            dispatch(getTotalItems({ orderId: cart[0].order_id }));
+        }
+    }, [cart, dispatch, totalItems]);
 
     return (
         <nav className='home-nav2'>
@@ -33,13 +42,16 @@ const Navbar = () => {
             </div>
             <div className='right-nav'>
                 <NavLink to={'/cart'}><FontAwesomeIcon icon={faCartShopping} size='xl' color="#fff" /></NavLink>
+                <div className="circle">
+                    <p>{totalItems}</p>
+                </div>
                 <NavLink to={'/account/personal-info'}><FontAwesomeIcon icon={faCircleUser} size='xl' color="#fff" /></NavLink>
             </div>
             <div className='menu'>
                 <Menu loading={loading} products={products} error={error} />
             </div>
         </nav>
-    )
-}
+    );
+};
 
 export default Navbar;

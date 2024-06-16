@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import './home.css';
 import Menu from '../components/menu/menu';
 import { Link, NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getTotalItems } from '../features/cart/cartSlice';
 
-const Home = ({ loading, products, error }) => {
+const Home = ({ loading, products, cart, error }) => {
+    const { totalItemsLoading, totalItems, errorItems } = useSelector((state) => state.cart);
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        if (cart.length > 0) {
+            dispatch(getTotalItems({ orderId: cart[0].order_id }));
+            console.log(1)
+        }
+    }, [cart]);
 
     return (
         <div>
@@ -25,6 +36,9 @@ const Home = ({ loading, products, error }) => {
                     </div>
                     <div className='right-nav'>
                         <NavLink to={'/cart'}><FontAwesomeIcon icon={faCartShopping} size='xl' color="#fff" /></NavLink>
+                        <div className="circle">
+                            <p>{totalItems}</p>
+                        </div>
                         <NavLink to={'/account/personal-info'}><FontAwesomeIcon icon={faCircleUser} size='xl' color="#fff" /></NavLink>
                     </div>
                     <div className='menu'>

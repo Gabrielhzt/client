@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import './cart.css';
 import { useDispatch } from 'react-redux';
-import { fetchCart, removeItem, updateQuantity, updateTotalPrice } from '../features/cart/cartSlice';
+import { fetchCart, getTotalItems, removeItem, updateQuantity, updateTotalPrice } from '../features/cart/cartSlice';
 
 const Cart = ({ loadingCart, cart, total, allQuantity, errorCart }) => {
     const dispatch = useDispatch();
@@ -19,7 +19,8 @@ const Cart = ({ loadingCart, cart, total, allQuantity, errorCart }) => {
         dispatch(updateQuantity({ orderDetailId, quantity: quantity + 1, orderId }))
             .then(() => {
                 dispatch(updateQuantity());
-                dispatch(updateTotalPrice({ orderId }));
+                
+                dispatch(getTotalItems({ orderId: cart[0].order_id }));
             });
     };
 
@@ -28,7 +29,7 @@ const Cart = ({ loadingCart, cart, total, allQuantity, errorCart }) => {
             dispatch(updateQuantity({ orderDetailId, quantity: quantity - 1, orderId }))
                 .then(() => {
                     dispatch(updateQuantity());
-                    
+                    dispatch(getTotalItems({ orderId: cart[0].order_id }));
                 });
         }
     };
@@ -40,6 +41,10 @@ const Cart = ({ loadingCart, cart, total, allQuantity, errorCart }) => {
                 dispatch(updateTotalPrice({ orderId }));
             });
     };
+
+    if (!Array.isArray(cart)) {
+        return <div>Loading...</div>;
+      }
 
     return (
         <div>
