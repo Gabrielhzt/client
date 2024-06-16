@@ -42,7 +42,7 @@ const Home = ({ loading, products, cart, error }) => {
                         <NavLink to={'/account/personal-info'}><FontAwesomeIcon icon={faCircleUser} size='xl' color="#fff" /></NavLink>
                     </div>
                     <div className='menu'>
-                        <Menu loading={loading} products={products} error={error} />
+                        <Menu loading={loading} products={products} cart={cart} totalItems={totalItems} error={error} />
                     </div>
                 </nav>
                 <div className='header-title'>
