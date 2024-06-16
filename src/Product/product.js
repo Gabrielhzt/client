@@ -2,21 +2,33 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './product.css';
 import Navbar from '../components/navbar/navbar';
-import { addProductToCart, fetchCart, updateTotalPrice } from '../features/cart/cartSlice';
-import { useDispatch } from 'react-redux';
+import { addProductToCart, fetchCart } from '../features/cart/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addInWishlist, getWishlist, removeFromWishlist } from '../features/wishlist/wishlistSlice';
 
 const Product = ({ loading, products, error, loadingCart, cart, total, allQuantity, errorCart }) => {
+  const { loadingWishlist, wishlist, errorWishlist } = useSelector((state) => state.wishlist);
   const { id } = useParams();
   const productId = parseInt(id);
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [product, setProduct] = useState(null);
+  const [isInWishlist, setIsInWishlist] = useState(false);
+
+  useEffect(() => {
+    dispatch(getWishlist());
+  }, [dispatch]);
 
   useEffect(() => {
     const foundProduct = products.find((product) => product.product_id === productId);
     setProduct(foundProduct);
-  }, [products, productId]);
+
+    if (Array.isArray(wishlist) && wishlist.length > 0) {
+      const isInWishlist = wishlist.some(item => item.product_id === productId);
+      setIsInWishlist(isInWishlist);
+    }
+  }, [products, wishlist, productId]);
 
   const handleAddToCart = () => {
     if (product) {
@@ -26,6 +38,20 @@ const Product = ({ loading, products, error, loadingCart, cart, total, allQuanti
         navigate('/cart');
       });
     }
+  };
+
+  const handleAddToWishlist = () => {
+    dispatch(addInWishlist({ productId: productId }))
+    .then(() => {
+      dispatch(getWishlist())
+    })
+  };
+
+  const handleRemoveFromWishlist = () => {
+    dispatch(removeFromWishlist({ productId: productId }))
+    .then(() => {
+      dispatch(getWishlist())
+    })
   };
 
   if (error || !product) {
@@ -52,7 +78,11 @@ const Product = ({ loading, products, error, loadingCart, cart, total, allQuanti
           </div>
           <div className='group2'>
             <button className='buy' onClick={handleAddToCart}>Add to cart</button>
-            <button className='add'>Add to wishlist</button>
+            {isInWishlist ? (
+              <button className='add' onClick={handleRemoveFromWishlist}>Remove from wishlist</button>
+            ) : (
+              <button className='add' onClick={handleAddToWishlist}>Add to wishlist</button>
+            )}
           </div>
         </div>
       </div>
