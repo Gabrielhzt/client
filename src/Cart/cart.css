@@ -94,6 +94,12 @@
     cursor: pointer;
 }
 
+.space {
+    height: 250px;
+    display: flex;
+    align-items: center;
+}
+
 @media (max-width: 700px) {
 
     .cart {

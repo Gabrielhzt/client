@@ -41,6 +41,7 @@ const Cart = ({ loadingCart, cart, total, allQuantity, errorCart }) => {
             .then(() => {
                 dispatch(fetchCart());
                 dispatch(updateTotalPrice({ orderId }));
+                dispatch(getTotalItems({ orderId: cart[0].order_id }));
             });
     };
 
@@ -51,41 +52,55 @@ const Cart = ({ loadingCart, cart, total, allQuantity, errorCart }) => {
     return (
         <div>
             <div className='cart'>
-                <h1>Your Cart</h1>
+                <h1>Your Cart:</h1>
                 <div className='items'>
-                    {cart.map((item) => {
-                        const quantity = allQuantity.find(q => q.orderDetailId === item.order_detail_id)?.quantity || item.quantity;
-
-                        return (
-                            <div className='item' key={item.product_id}>
-                                <div className='info-product'>
-                                    <img src={item.product_img} alt='product' className='img-cart' />
-                                    <div className='text-product'>
-                                        <div>
-                                            <h3>{item.name}</h3>
-                                            <p>${item.price}</p>
+                    {cart.length > 0 ? (
+                        cart.map((item) => {
+                            const quantity = allQuantity.find(q => q.orderDetailId === item.order_detail_id)?.quantity || item.quantity;
+    
+                            return (
+                                <div className='item' key={item.product_id}>
+                                    <div className='info-product'>
+                                        <img src={item.product_img} alt='product' className='img-cart' />
+                                        <div className='text-product'>
+                                            <div>
+                                                <h3>{item.name}</h3>
+                                                <p>${item.price}</p>
+                                            </div>
+                                            <button className='remove' onClick={() => handleRemoveItem(item.order_detail_id, item.order_id)}>Remove</button>
                                         </div>
-                                        <button className='remove' onClick={() => handleRemoveItem(item.order_detail_id, item.order_id)}>Remove</button>
+                                    </div>
+                                    <div className='number'>
+                                        <div className='quantity' onClick={() => incrementQuantity(item.order_detail_id, quantity, item.order_id)}>
+                                            <FontAwesomeIcon icon={faChevronUp} />
+                                        </div>
+                                        <p>{quantity}</p>
+                                        <div className='quantity' onClick={() => decrementQuantity(item.order_detail_id, quantity, item.order_id)}>
+                                            <FontAwesomeIcon icon={faChevronDown} />
+                                        </div>
                                     </div>
                                 </div>
-                                <div className='number'>
-                                    <div className='quantity' onClick={() => incrementQuantity(item.order_detail_id, quantity, item.order_id)}>
-                                        <FontAwesomeIcon icon={faChevronUp} />
-                                    </div>
-                                    <p>{quantity}</p>
-                                    <div className='quantity' onClick={() => decrementQuantity(item.order_detail_id, quantity, item.order_id)}>
-                                        <FontAwesomeIcon icon={faChevronDown} />
-                                    </div>
-                                </div>
-                            </div>
-                        );
-                    })}
+                            );
+                        })
+                    ):(
+                        <div className='space'>
+                            <p>There is nothing in your cart for now</p>
+                        </div>
+                    )}
                 </div>
                 <div className='total'>
                     <h2>Total</h2>
-                    <p>${total.total}</p>
+                    {total.total ? (
+                        <p>${total.total}</p>
+                    ):(
+                        <p>$0</p>
+                    )}
                 </div>
-                <Link to={'/payment'}><button className='validate'>Validate the order</button></Link>
+                {cart.length > 0 ? (
+                    <Link to={'/payment'}><button className='validate'>Validate the order</button></Link>
+                ):(
+                    null
+                )}
             </div>
         </div>
     );
