@@ -16,7 +16,7 @@ const AuthRoute = ({ loadingUser, user, errorUser }) => {
     }
 
     if (user.full_name) {
-        return <Navigate to='/payment' />;
+        return <Navigate to='/account/personal-info' />;
     }
 
     return <Outlet />;

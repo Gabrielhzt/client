@@ -1,48 +1,60 @@
-import React from "react";
+import React, { useEffect } from "react";
 import './history.css';
+import { useDispatch, useSelector } from "react-redux";
+import { getcartHistory } from "../../features/cart/cartSlice";
+
+function formatDateString(dateString) {
+    const date = new Date(dateString);
+    const options = {
+        weekday: 'long', // Jour de la semaine (nom complet)
+        day: 'numeric',  // Jour du mois (numéro)
+        month: 'long',   // Mois (nom complet)
+        year: 'numeric'  // Année (numéro complet)
+    };
+
+    return new Intl.DateTimeFormat('en-US', options).format(date);
+}
 
 const History = () => {
+    const dispatch = useDispatch();
+    const { cartHistoryLoading, cartHistory, cartHistoryError } = useSelector((state) => state.cart);
+
+    useEffect(() => {
+        dispatch(getcartHistory());
+    }, [dispatch]);
+
     return (
         <div className="info">
             <p>On this page, find a summary of all your past orders, including details such as the order number, and total amount of each purchase. It's a convenient way to keep track of your previous purchases and reorder if needed.</p>
-            <div>
-                <div>
-                    <div className="top-history">
-                        <h2>Order 1</h2>
-                        <p>Total Amount: $1000</p>
-                    </div>
-                    <div className="gap">
-                        <div className='order-product'>
-                            <div className='info-product'>
-                                <img src="https://www.vanmoof.com/sites/default/files/2023-03/PDP-D-Carousel-S5-Light-01_0.jpg" alt="" className='img-history' />
-                                <div className='text-product'>
-                                    <div>
-                                        <h3>VB Pulse</h3>
-                                        <p>$500</p>
-                                    </div>
-                                    <div></div>
-                                </div>
-                            </div>
-                            <p>Quantity: 1</p>
+            <div className="all-gap">
+                {cartHistory.map((order) => (
+                    <div key={order.order_id}>
+                        <div className="top-history">
+                            <h2>{formatDateString(order.created_at)}</h2>
+                            <p>Total Amount: ${order.total_amount}</p>
                         </div>
-                        <div className='order-product'>
-                            <div className='info-product'>
-                                <img src="https://www.vanmoof.com/sites/default/files/2023-03/PDP-D-Carousel-S5-Light-01_0.jpg" alt="" className='img-history' />
-                                <div className='text-product'>
-                                    <div>
-                                        <h3>VB Pulse</h3>
-                                        <p>$500</p>
+                        <div className="gap">
+                            {order.products.map((products) => (
+                                <div className='order-product' key={products.product_id}>
+                                    <div className='info-product'>
+                                        <img src={products.image_url} alt="" className='img-history' />
+                                        <div className='text-product'>
+                                            <div>
+                                                <h3>{products.name}</h3>
+                                                <p>${products.price}</p>
+                                            </div>
+                                            <div></div>
+                                        </div>
                                     </div>
-                                    <div></div>
+                                    <p>Quantity: {products.quantity}</p>
                                 </div>
-                            </div>
-                            <p>Quantity: 1</p>
+                            ))}
                         </div>
                     </div>
-                </div>
+                ))}
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default History;

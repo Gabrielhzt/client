@@ -4,6 +4,9 @@ import axios from 'axios';
 const initialState = {
     loadingCart: false,
     cart: [],
+    cartHistory: [],
+    cartHistoryLoading: false,
+    cartHistoryError: '',
     total: 0,
     totalItems: 0,
     totalItemsLoading: false,
@@ -85,6 +88,17 @@ export const validateCart = createAsyncThunk('cart/validateCart', async () => {
     const token = localStorage.getItem('token');
     return await axios
         .post('http://localhost:4000/orders/validate', {}, {
+            headers: {
+                'Authorization': token
+            }
+        })
+        .then((response) => response.data);
+});
+
+export const getcartHistory = createAsyncThunk('cart/getcartHistory', async () => {
+    const token = localStorage.getItem('token');
+    return await axios
+        .get('http://localhost:4000/orders/validated', {
             headers: {
                 'Authorization': token
             }
@@ -195,6 +209,18 @@ const cartSlice = createSlice({
             .addCase(validateCart.rejected, (state, action) => {
                 state.loadingCart = true;
                 state.errorCart = action.error.message;
+            })
+            .addCase(getcartHistory.pending, (state) => {
+                state.cartHistoryLoading = true;
+            })
+            .addCase(getcartHistory.fulfilled, (state, action) => {
+                state.cartHistoryLoading = false;
+                state.cartHistory = action.payload;
+                state.cartHistoryError = '';
+            })
+            .addCase(getcartHistory.rejected, (state, action) => {
+                state.cartHistoryLoading = false;
+                state.cartHistoryError = action.error.message;
             })
     }
 });

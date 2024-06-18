@@ -14,7 +14,6 @@ const Home = ({ loading, products, cart, error }) => {
     useEffect(() => {
         if (cart.length > 0) {
             dispatch(getTotalItems({ orderId: cart[0].order_id }));
-            console.log(1)
         }
     }, [cart]);
 
