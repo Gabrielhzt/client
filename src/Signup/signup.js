@@ -13,7 +13,7 @@ const Signup = () => {
         event.preventDefault();
         
         try {
-          const response = await axios.post('http://localhost:4000/auth/register', {
+          const response = await axios.post('https://voltbike-server.onrender.com/auth/register', {
             full_name: fullName,
             email: email,
             password: password

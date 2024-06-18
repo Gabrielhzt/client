@@ -24,7 +24,7 @@ const Payment = ({ loadingCart, cart, errorCart }) => {
     useEffect(() => {
         if (token && cart && cart.length > 0) {
             const amountInCents = parseFloat(cart[0].total) * 100;
-            axios.post('http://localhost:4000/payment/create-payment-intent', { amount: amountInCents, products: cart }, {
+            axios.post('https://voltbike-server.onrender.com/payment/create-payment-intent', { amount: amountInCents, products: cart }, {
                 headers: {
                     'Authorization': token
                 }

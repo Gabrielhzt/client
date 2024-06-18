@@ -9,7 +9,7 @@ const initialState = {
 
 export const fetchProducts = createAsyncThunk('product/fetchProducts', () => {
     return axios
-        .get('http://localhost:4000/products/')
+        .get('https://voltbike-server.onrender.com/products/')
         .then((response) => response.data)
 });
 

@@ -10,7 +10,7 @@ const initialState = {
 export const fetchUserInfo = createAsyncThunk('user/fetchUserInfo', async () => {
     const token = localStorage.getItem('token');
     return await axios
-        .get('http://localhost:4000/user/profile', {
+        .get('https://voltbike-server.onrender.com/user/profile', {
             headers: {
                 'Authorization': token
             }
@@ -21,7 +21,7 @@ export const fetchUserInfo = createAsyncThunk('user/fetchUserInfo', async () => 
 export const updateUserInfo = createAsyncThunk('user/updateUserInfo', async (userInfo) => {
     const token = localStorage.getItem('token');
     return await axios
-        .put('http://localhost:4000/user/profile', userInfo, {
+        .put('https://voltbike-server.onrender.com/user/profile', userInfo, {
             headers: {
                 'Authorization': token
             }

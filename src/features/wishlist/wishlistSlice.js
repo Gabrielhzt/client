@@ -10,7 +10,7 @@ const initialState = {
 export const getWishlist = createAsyncThunk('wishlist/getWishlist', async () => {
     const token = localStorage.getItem('token');
     return await axios
-        .get('http://localhost:4000/wishlist/', {
+        .get('https://voltbike-server.onrender.com/wishlist/', {
             headers: {
                 'Authorization': token
             }
@@ -21,7 +21,7 @@ export const getWishlist = createAsyncThunk('wishlist/getWishlist', async () => 
 export const addInWishlist = createAsyncThunk('wishlist/addInWishlist', async ({productId}) => {
     const token = localStorage.getItem('token');
     return await axios
-        .post('http://localhost:4000/wishlist/add', {productId}, {
+        .post('https://voltbike-server.onrender.com/wishlist/add', {productId}, {
             headers: {
                 'Authorization': token
             }
@@ -32,7 +32,7 @@ export const addInWishlist = createAsyncThunk('wishlist/addInWishlist', async ({
 export const removeFromWishlist = createAsyncThunk('wishlist/removeFromWishlist', async ({productId}) => {
     const token = localStorage.getItem('token');
     return await axios
-        .put('http://localhost:4000/wishlist/remove', {productId}, {
+        .put('https://voltbike-server.onrender.com/wishlist/remove', {productId}, {
             headers: {
                 'Authorization': token
             }

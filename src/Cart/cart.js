@@ -19,7 +19,7 @@ const Cart = ({ loadingCart, cart, total, allQuantity, errorCart }) => {
         dispatch(updateQuantity({ orderDetailId, quantity: quantity + 1, orderId }))
             .then(() => {
                 dispatch(updateQuantity());
-                
+                dispatch(updateTotalPrice({ orderId: cart[0].order_id }));
                 dispatch(getTotalItems({ orderId: cart[0].order_id }));
             });
     };
@@ -30,6 +30,7 @@ const Cart = ({ loadingCart, cart, total, allQuantity, errorCart }) => {
                 .then(() => {
                     dispatch(updateQuantity());
                     dispatch(getTotalItems({ orderId: cart[0].order_id }));
+                    dispatch(updateTotalPrice({ orderId: cart[0].order_id }));
                 });
         }
     };

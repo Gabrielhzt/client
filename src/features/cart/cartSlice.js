@@ -20,7 +20,7 @@ const initialState = {
 export const fetchCart = createAsyncThunk('cart/fetchCart', async () => {
     const token = localStorage.getItem('token');
     return await axios
-        .get('http://localhost:4000/orders/', {
+        .get('https://voltbike-server.onrender.com/orders/', {
             headers: {
                 'Authorization': token
             }
@@ -31,7 +31,7 @@ export const fetchCart = createAsyncThunk('cart/fetchCart', async () => {
 export const updateQuantity = createAsyncThunk('cart/updateQuantity', async ({ orderDetailId, quantity, orderId }) => {
     const token = localStorage.getItem('token');
     return await axios
-        .put('http://localhost:4000/orders/quantity', { orderDetailId, quantity, orderId }, {
+        .put('https://voltbike-server.onrender.com/orders/quantity', { orderDetailId, quantity, orderId }, {
             headers: {
                 'Authorization': token
             }
@@ -42,7 +42,7 @@ export const updateQuantity = createAsyncThunk('cart/updateQuantity', async ({ o
 export const removeItem = createAsyncThunk('cart/removeItem', async (orderDetailId) => {
     const token = localStorage.getItem('token');
     return await axios
-        .delete('http://localhost:4000/orders/remove', {
+        .delete('https://voltbike-server.onrender.com/orders/remove', {
             data: { order_detail_id: orderDetailId },
             headers: {
                 'Authorization': token
@@ -54,7 +54,7 @@ export const removeItem = createAsyncThunk('cart/removeItem', async (orderDetail
 export const updateTotalPrice = createAsyncThunk('cart/updateTotalPrice', async ({ orderId }) => {
     const token = localStorage.getItem('token');
     return await axios
-        .put('http://localhost:4000/orders/total', { orderId }, {
+        .put('https://voltbike-server.onrender.com/orders/total', { orderId }, {
             headers: {
                 'Authorization': token
             }
@@ -65,7 +65,7 @@ export const updateTotalPrice = createAsyncThunk('cart/updateTotalPrice', async 
 export const addProductToCart = createAsyncThunk('cart/addProductToCart', async ({ productId, quantity, price }) => {
     const token = localStorage.getItem('token');
     return await axios
-        .put('http://localhost:4000/orders/addproduct', { productId, quantity, price }, {
+        .put('https://voltbike-server.onrender.com/orders/addproduct', { productId, quantity, price }, {
             headers: {
                 'Authorization': token
             }
@@ -76,7 +76,7 @@ export const addProductToCart = createAsyncThunk('cart/addProductToCart', async 
 export const getTotalItems = createAsyncThunk('cart/totalItems', async ({ orderId }) => {
     const token = localStorage.getItem('token');
     return await axios
-        .get(`http://localhost:4000/orders/totalItems?orderId=${orderId}`, {
+        .get(`https://voltbike-server.onrender.com/orders/totalItems?orderId=${orderId}`, {
             headers: {
                 'Authorization': token
             }
@@ -87,7 +87,7 @@ export const getTotalItems = createAsyncThunk('cart/totalItems', async ({ orderI
 export const validateCart = createAsyncThunk('cart/validateCart', async () => {
     const token = localStorage.getItem('token');
     return await axios
-        .post('http://localhost:4000/orders/validate', {}, {
+        .post('https://voltbike-server.onrender.com/orders/validate', {}, {
             headers: {
                 'Authorization': token
             }
@@ -98,7 +98,7 @@ export const validateCart = createAsyncThunk('cart/validateCart', async () => {
 export const getcartHistory = createAsyncThunk('cart/getcartHistory', async () => {
     const token = localStorage.getItem('token');
     return await axios
-        .get('http://localhost:4000/orders/validated', {
+        .get('https://voltbike-server.onrender.com/orders/validated', {
             headers: {
                 'Authorization': token
             }

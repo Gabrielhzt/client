@@ -20,7 +20,7 @@ const PaymentForm = ({ cart }) => {
         const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
-                return_url: 'http://localhost:3000/payment-success',
+                return_url: 'https://voltbike.vercel.app/payment-success',
                 shipping: {
                     name: address.name,
                     address: {
