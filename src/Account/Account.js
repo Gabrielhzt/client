@@ -13,7 +13,7 @@ const Account = () => {
     const handleLogout = async () => {
         try {
             const token = localStorage.getItem('token');
-            await axios.post('http://localhost:4000/user/logout', token, {
+            await axios.post('https://voltbike-server.onrender.com/user/logout', token, {
                 headers: {
                     'Authorization': token
                 }
