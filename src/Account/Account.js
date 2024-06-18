@@ -2,7 +2,6 @@ import React from "react";
 import {  Outlet, useNavigate } from "react-router";
 import { NavLink } from "react-router-dom";
 import './Account.css';
-import Navbar from "../components/navbar/navbar";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { fetchUserInfo } from "../features/user/userSlice";

@@ -1,21 +1,19 @@
 import React, { useEffect } from 'react';
-import Navbar from '../components/navbar/navbar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import './cart.css';
 import { useDispatch } from 'react-redux';
-import { fetchCart, getTotalItems, removeItem, updateQuantity, updateTotalPrice, validateCart } from '../features/cart/cartSlice';
-import { Navigate } from 'react-router';
+import { fetchCart, getTotalItems, removeItem, updateQuantity, updateTotalPrice } from '../features/cart/cartSlice';
 import { Link } from 'react-router-dom';
 
 const Cart = ({ loadingCart, cart, total, allQuantity, errorCart }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!loadingCart && cart.length > 0) {
+        if (!errorCart && cart.length > 0) {
             dispatch(updateTotalPrice({ orderId: cart[0].order_id }));
         }
-    }, [dispatch, loadingCart, cart]);
+    }, [dispatch, errorCart, cart]);
 
     const incrementQuantity = (orderDetailId, quantity, orderId) => {
         dispatch(updateQuantity({ orderDetailId, quantity: quantity + 1, orderId }))
@@ -45,7 +43,7 @@ const Cart = ({ loadingCart, cart, total, allQuantity, errorCart }) => {
             });
     };
 
-    if (!Array.isArray(cart)) {
+    if (!Array.isArray(cart || loadingCart)) {
         return <div>Loading...</div>;
       }
 

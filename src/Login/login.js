@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Navbar from "../components/navbar/navbar";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { fetchUserInfo } from "../features/user/userSlice";

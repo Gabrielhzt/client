@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './product.css';
-import Navbar from '../components/navbar/navbar';
 import { addProductToCart, fetchCart } from '../features/cart/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { addInWishlist, getWishlist, removeFromWishlist } from '../features/wishlist/wishlistSlice';
 
-const Product = ({ loading, products, error, loadingCart, cart, total, allQuantity, errorCart }) => {
-  const { loadingWishlist, wishlist, errorWishlist } = useSelector((state) => state.wishlist);
+const Product = ({ loading, products, error }) => {
+  const { wishlist } = useSelector((state) => state.wishlist);
   const { id } = useParams();
   const productId = parseInt(id);
   const dispatch = useDispatch();

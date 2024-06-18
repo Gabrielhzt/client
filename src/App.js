@@ -37,7 +37,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home loading={loading} products={products} cart={cart} error={error} />} />
         <Route element={<NavRoute />}>
-          <Route path='/product/:id' element={<Product loading={loading} products={products} error={error} loadingCart={loadingCart} cart={cart} total={total} allQuantity={allQuantity} errorCart={errorCart} />} />
+          <Route path='/product/:id' element={<Product loading={loading} products={products} error={error} />} />
           <Route element={<PrivateRoute loadingUser={loadingUser} user={user} errorUser={errorUser} />}>
             <Route path="/cart" element={<Cart loadingCart={loadingCart} cart={cart} total={total} allQuantity={allQuantity} errorCart={errorCart} />} />
             <Route path="/account" element={<Account />}>
@@ -47,7 +47,7 @@ function App() {
             </Route>
             <Route path="payment" element={<Payment loadingCart={loadingCart} cart={cart} errorCart={errorCart} />} />
           </Route>
-          <Route element={<AuthRoute loadingUser={loadingUser} user={user} errorUser={errorUser} />}>
+          <Route element={<AuthRoute loadingUser={loadingUser} user={user} />}>
             <Route path='/signup' element={<Signup />} />
             <Route path='/login' element={<Login />} />
           </Route>

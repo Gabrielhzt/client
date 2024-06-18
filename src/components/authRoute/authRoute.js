@@ -4,12 +4,12 @@ import { Navigate } from 'react-router';
 import { fetchUserInfo } from '../../features/user/userSlice';
 import { useDispatch } from 'react-redux';
 
-const AuthRoute = ({ loadingUser, user, errorUser }) => {
+const AuthRoute = ({ loadingUser, user }) => {
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(fetchUserInfo())
-    }, [])
+    }, [dispatch])
 
     if (loadingUser) {
         return <div>Loading...</div>;

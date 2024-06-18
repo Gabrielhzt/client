@@ -15,7 +15,7 @@ const Home = ({ loading, products, cart, error }) => {
         if (cart.length > 0) {
             dispatch(getTotalItems({ orderId: cart[0].order_id }));
         }
-    }, [cart]);
+    }, [cart, dispatch]);
 
     return (
         <div>
@@ -36,7 +36,11 @@ const Home = ({ loading, products, cart, error }) => {
                     <div className='right-nav'>
                         <NavLink to={'/cart'}><FontAwesomeIcon icon={faCartShopping} size='xl' color="#fff" /></NavLink>
                         <div className="circle">
-                            <p>{totalItems}</p>
+                            {totalItemsLoading || errorItems ? (
+                                <p>...</p>
+                            ):(
+                                <p>{totalItems}</p>
+                            )}
                         </div>
                         <NavLink to={'/account/personal-info'}><FontAwesomeIcon icon={faCircleUser} size='xl' color="#fff" /></NavLink>
                     </div>
