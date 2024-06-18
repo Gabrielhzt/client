@@ -81,6 +81,17 @@ export const getTotalItems = createAsyncThunk('cart/totalItems', async ({ orderI
         .then((response) => response.data);
 });
 
+export const validateCart = createAsyncThunk('cart/validateCart', async () => {
+    const token = localStorage.getItem('token');
+    return await axios
+        .post('http://localhost:4000/orders/validate', {}, {
+            headers: {
+                'Authorization': token
+            }
+        })
+        .then((response) => response.data);
+});
+
 const cartSlice = createSlice({
     name: 'cart',
     initialState,
@@ -172,6 +183,18 @@ const cartSlice = createSlice({
                 state.totalItemsLoading = true;
                 state.totalItems = 0;
                 state.errorItems = action.error.message;
+            })
+            .addCase(validateCart.pending, (state) => {
+                state.loadingCart = true;
+            })
+            .addCase(validateCart.fulfilled, (state, action) => {
+                state.loadingCart = false;
+                state.cart = [];
+                state.errorCart = '';
+            })
+            .addCase(validateCart.rejected, (state, action) => {
+                state.loadingCart = true;
+                state.errorCart = action.error.message;
             })
     }
 });

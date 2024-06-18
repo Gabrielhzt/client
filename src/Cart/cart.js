@@ -4,7 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import './cart.css';
 import { useDispatch } from 'react-redux';
-import { fetchCart, getTotalItems, removeItem, updateQuantity, updateTotalPrice } from '../features/cart/cartSlice';
+import { fetchCart, getTotalItems, removeItem, updateQuantity, updateTotalPrice, validateCart } from '../features/cart/cartSlice';
+import { Navigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const Cart = ({ loadingCart, cart, total, allQuantity, errorCart }) => {
     const dispatch = useDispatch();
@@ -84,7 +86,7 @@ const Cart = ({ loadingCart, cart, total, allQuantity, errorCart }) => {
                     <h2>Total</h2>
                     <p>${total.total}</p>
                 </div>
-                <button className='validate'>Validate the order</button>
+                <Link to={'/payment'}><button className='validate'>Validate the order</button></Link>
             </div>
             <footer>
                 <h2>VoltBike</h2>

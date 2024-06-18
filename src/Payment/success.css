@@ -1,0 +1,33 @@
+.thankyou {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.second {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 450px;
+    text-align: center;
+    gap: 20px;
+
+    background-color: #52788C;
+    color: #fff;
+    padding: 50px;
+    border-radius: 10px;
+}
+
+.second button {
+    font-size: 15px;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #fff;
+    color: #52788C;
+    margin-top: 20px;
+    cursor: pointer;
+}

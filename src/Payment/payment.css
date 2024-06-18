@@ -1,0 +1,60 @@
+.App {
+    margin: 60px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+    'info items';
+}
+
+@media (max-width: 1000px) {
+
+    .App {
+        margin: 40px 30px;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-areas:
+        'info'
+        'items';
+    }
+}
+
+@media (max-width: 700px) {
+
+    .App {
+        margin: 40px 10px;
+    }
+
+}
+
+.info {
+    grid-area: info;
+}
+
+.items2 {
+    grid-area: items;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.total2 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn2 {
+    background-color: #52788C;
+    color: #fff;
+    padding: 8px 18px;
+    border: none;
+    border-radius: 20px;
+    margin-top: 20px;
+    cursor: pointer;
+}
