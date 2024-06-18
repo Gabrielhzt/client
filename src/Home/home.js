@@ -50,8 +50,24 @@ const Home = ({ loading, products, cart, error }) => {
                     <button className='btn'>Learn more</button>
                 </div>
             </header>
-                {loading && <div>Loading</div>}
-                {!loading && error ? <div>Error: {products.error}</div> : null}
+                {loading && (
+                    <section className='products'>
+                        <div className='img-2' style={{backgroundColor: "#F5F5F5"}}></div>
+                        <div className='img-2' style={{backgroundColor: "#0B1C26"}}></div>
+                        <div className='img-2' style={{backgroundColor: "#F5F5F5"}}></div>
+                        <div className='img-2' style={{backgroundColor: "#0B1C26"}}></div>
+                    </section>
+                )}
+                {!loading && error ? (
+                    <section className='products'>
+                        <div className='img-2' style={{backgroundColor: "#F5F5F5"}}></div>
+                        <div className='img-2' style={{backgroundColor: "#0B1C26"}}></div>
+                        <div className='img-2' style={{backgroundColor: "#F5F5F5"}}></div>
+                        <div className='img-2' style={{backgroundColor: "#0B1C26"}}></div>
+                    </section>
+                ) : (
+                    null
+                )}
                 {!loading && products.length ? (
                     <section className='products'>
                         {products.map((product) => (

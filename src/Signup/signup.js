@@ -29,7 +29,6 @@ const Signup = () => {
 
     return (
         <div>
-            <Navbar />
             <div className="all-page">
                 <div className="square">
                     <h1>Sign up</h1>
@@ -69,10 +68,6 @@ const Signup = () => {
                     <p>Already have an account ? <Link to={'/login'}>Login</Link></p>
                 </div>
             </div>
-            <footer>
-                <h2>VoltBike</h2>
-                <p>© 2024 VoltBike - Designed with passion by Gabriel Hazout. All rights reserved.</p>
-            </footer>
         </div>
     );
 };

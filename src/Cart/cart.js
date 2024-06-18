@@ -50,7 +50,6 @@ const Cart = ({ loadingCart, cart, total, allQuantity, errorCart }) => {
 
     return (
         <div>
-            <Navbar />
             <div className='cart'>
                 <h1>Your Cart</h1>
                 <div className='items'>
@@ -88,10 +87,6 @@ const Cart = ({ loadingCart, cart, total, allQuantity, errorCart }) => {
                 </div>
                 <Link to={'/payment'}><button className='validate'>Validate the order</button></Link>
             </div>
-            <footer>
-                <h2>VoltBike</h2>
-                <p>© 2024 VoltBike - Designed with passion by Gabriel Hazout. All rights reserved.</p>
-            </footer>
         </div>
     );
 };

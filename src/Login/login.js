@@ -35,7 +35,6 @@ const Login = () => {
 
     return (
         <div>
-            <Navbar />
             <div className="all-page">
                 <div className="square">
                     <h1>Login</h1>
@@ -66,10 +65,6 @@ const Login = () => {
                     <p>New here ? <Link to={'/signup'}>Create an account</Link></p>
                 </div>
             </div>
-            <footer>
-                <h2>VoltBike</h2>
-                <p>© 2024 VoltBike - Designed with passion by Gabriel Hazout. All rights reserved.</p>
-            </footer>
         </div>
     )
 }

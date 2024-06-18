@@ -29,7 +29,6 @@ const Account = () => {
 
     return (
         <div>
-            <Navbar />
             <div className="account">
                 <div className="account-nav">
                     <NavLink to={'personal-info'}>
@@ -49,10 +48,6 @@ const Account = () => {
                     <Outlet />
                 </div>
             </div>
-            <footer>
-                <h2>VoltBike</h2>
-                <p>© 2024 VoltBike - Designed with passion by Gabriel Hazout. All rights reserved.</p>
-            </footer>
         </div>
     )
 }

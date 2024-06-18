@@ -60,7 +60,6 @@ const Product = ({ loading, products, error, loadingCart, cart, total, allQuanti
 
   return (
     <div>
-      <Navbar />
       <div className='description'>
         <img src={product.product_img} alt={product.name} className='product-img' />
         <div className='detail'>
@@ -89,10 +88,6 @@ const Product = ({ loading, products, error, loadingCart, cart, total, allQuanti
       <section className='banner'>
         <img src='https://www.vanmoof.com/sites/default/files/2023-02/CTA-D-H01-v2.jpg' alt='banner-voltbike' className='banner-img' />
       </section>
-      <footer>
-        <h2>VoltBike</h2>
-        <p>© 2024 VoltBike - Designed with passion by Gabriel Hazout. All rights reserved.</p>
-      </footer>
     </div>
   );
 };

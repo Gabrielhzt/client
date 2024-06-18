@@ -18,6 +18,7 @@ import AuthRoute from './components/authRoute/authRoute';
 import { fetchCart } from './features/cart/cartSlice';
 import Payment from './Payment/payment';
 import Success from './Payment/success';
+import NavRoute from './components/navRoute/navRoute';
 
 function App() {
   const { loading, products, error } = useSelector((state) => state.products);
@@ -34,22 +35,24 @@ function App() {
   return (
     <Router>
       <Routes>
-      <Route path="payment-success" element={<Success />} />
         <Route path='/' element={<Home loading={loading} products={products} cart={cart} error={error} />} />
-        <Route path='/product/:id' element={<Product loading={loading} products={products} error={error} loadingCart={loadingCart} cart={cart} total={total} allQuantity={allQuantity} errorCart={errorCart} />} />
-        <Route element={<PrivateRoute loadingUser={loadingUser} user={user} errorUser={errorUser} />}>
-          <Route path="/cart" element={<Cart loadingCart={loadingCart} cart={cart} total={total} allQuantity={allQuantity} errorCart={errorCart} />} />
-          <Route path="/account" element={<Account />}>
-            <Route path="personal-info" element={<Info loadingUser={loadingUser} user={user} errorUser={errorUser} />} />
-            <Route path="order-history" element={<History />} />
-            <Route path="wishlist" element={<Wishlist />} />
+        <Route element={<NavRoute />}>
+          <Route path='/product/:id' element={<Product loading={loading} products={products} error={error} loadingCart={loadingCart} cart={cart} total={total} allQuantity={allQuantity} errorCart={errorCart} />} />
+          <Route element={<PrivateRoute loadingUser={loadingUser} user={user} errorUser={errorUser} />}>
+            <Route path="/cart" element={<Cart loadingCart={loadingCart} cart={cart} total={total} allQuantity={allQuantity} errorCart={errorCart} />} />
+            <Route path="/account" element={<Account />}>
+              <Route path="personal-info" element={<Info loadingUser={loadingUser} user={user} errorUser={errorUser} />} />
+              <Route path="order-history" element={<History />} />
+              <Route path="wishlist" element={<Wishlist />} />
+            </Route>
+            <Route path="payment" element={<Payment loadingCart={loadingCart} cart={cart} errorCart={errorCart} />} />
           </Route>
-          <Route path="payment" element={<Payment loadingCart={loadingCart} cart={cart} errorCart={errorCart} />} />
+          <Route element={<AuthRoute loadingUser={loadingUser} user={user} errorUser={errorUser} />}>
+            <Route path='/signup' element={<Signup />} />
+            <Route path='/login' element={<Login />} />
+          </Route>
         </Route>
-        <Route element={<AuthRoute loadingUser={loadingUser} user={user} errorUser={errorUser} />}>
-          <Route path='/signup' element={<Signup />} />
-          <Route path='/login' element={<Login />} />
-        </Route>
+        <Route path="payment-success" element={<Success />} />
       </Routes>
     </Router>
   );
