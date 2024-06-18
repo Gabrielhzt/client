@@ -10,7 +10,7 @@ import { fetchCart, getTotalItems } from "../../features/cart/cartSlice";
 
 const Navbar = () => {
     const { loading, products, error } = useSelector((state) => state.products);
-    const { totalItemsLoading, totalItems, cart, errorItems } = useSelector((state) => state.cart);
+    const { totalItems, cart } = useSelector((state) => state.cart);
     const dispatch = useDispatch();
 
     useEffect(() => {

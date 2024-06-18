@@ -3,7 +3,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import PaymentForm from './paymentForm';
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchCart } from '../features/cart/cartSlice';
 import './payment.css';
 import { Link } from 'react-router-dom';
