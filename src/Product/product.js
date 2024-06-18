@@ -54,37 +54,58 @@ const Product = ({ loading, products, error, loadingCart, cart, total, allQuanti
     })
   };
 
-  if (error || !product) {
-    return <div>Product not found</div>;
-  }
+  
 
   return (
     <div>
-      <div className='description'>
-        <img src={product.product_img} alt={product.name} className='product-img' />
-        <div className='detail'>
-          <div className='group'>
-            <h1>{product.name}</h1>
-            <p>{product.description}</p>
-          </div>
-          <div className='group'>
-            <p>Color:</p>
-            <div className={product.color === 'grey' ? 'color' : 'color2'}></div>
-          </div>
-          <div className='group'>
-            <p>Price:</p>
-            <p>${product.price}</p>
-          </div>
-          <div className='group2'>
-            <button className='buy' onClick={handleAddToCart}>Add to cart</button>
-            {isInWishlist ? (
-              <button className='add' onClick={handleRemoveFromWishlist}>Remove from wishlist</button>
-            ) : (
-              <button className='add' onClick={handleAddToWishlist}>Add to wishlist</button>
-            )}
+      {error || !product || loading ? (
+        <div className='description'>
+          <div className='product-img' style={{backgroundColor: "#F5F5F5"}}></div>
+          <div className='detail' style={{alignItems: "flex-start", width: "100%"}}>
+            <div className='group'>
+              <div className='title1'></div>
+            </div>
+            <div className='group'>
+              <div className='text1'></div>
+              <div className='text2'></div>
+              <div className='text3'></div>
+              <div className='text4'></div>
+            </div>
+            <div className='group'>
+              <div className='text5'></div>
+            </div>
+            <div className='group2'>
+              <button className='buy1'></button>
+            </div>
           </div>
         </div>
-      </div>
+      ): (
+        <div className='description'>
+          <img src={product.product_img} alt={product.name} className='product-img' />
+          <div className='detail'>
+            <div className='group'>
+              <h1>{product.name}</h1>
+              <p>{product.description}</p>
+            </div>
+            <div className='group'>
+              <p>Color:</p>
+              <div className={product.color === 'grey' ? 'color' : 'color2'}></div>
+            </div>
+            <div className='group'>
+              <p>Price:</p>
+              <p>${product.price}</p>
+            </div>
+            <div className='group2'>
+              <button className='buy' onClick={handleAddToCart}>Add to cart</button>
+              {isInWishlist ? (
+                <button className='add' onClick={handleRemoveFromWishlist}>Remove from wishlist</button>
+              ) : (
+                <button className='add' onClick={handleAddToWishlist}>Add to wishlist</button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
       <section className='banner'>
         <img src='https://www.vanmoof.com/sites/default/files/2023-02/CTA-D-H01-v2.jpg' alt='banner-voltbike' className='banner-img' />
       </section>
