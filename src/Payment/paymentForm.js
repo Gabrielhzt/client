@@ -8,13 +8,24 @@ const PaymentForm = ({ cart }) => {
     const elements = useElements();
     const dispatch = useDispatch();
     const [error1, setError1] = useState(null);
+    const [isFormValid, setIsFormValid] = useState(false);
 
     useEffect(() => {
         console.log(error1);
     }, [error1]);
 
+    const validateForm = () => {
+        const address = elements.getElement(AddressElement);
+
+        const isAddressValid = address && address.complete;
+
+        setIsFormValid(isAddressValid);
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        setError1(null)
 
         if (!stripe || !elements) {
             return;
@@ -43,15 +54,12 @@ const PaymentForm = ({ cart }) => {
 
             if (error) {
                 setError1('error');
-                console.log(error1)
                 console.error('Error confirming payment:', error);
-            }else {
-                setError1('good');
-                console.log(error1)
+            } else {
+                setError1(null);
             }
         } catch (error) {
             setError1('error');
-            console.log(error1)
             console.error('Error in handleSubmit:', error);
         }
     };
@@ -61,8 +69,7 @@ const PaymentForm = ({ cart }) => {
 
         try {
             await handleSubmit(event);
-            console.log(error1)
-            if (error1 === 'good') {
+            if (error1 === null) {
                 dispatch(validateCart());
             }
         } catch (error) {
@@ -73,8 +80,8 @@ const PaymentForm = ({ cart }) => {
     return (
         <form onSubmit={handleSubmitWithDispatch}>
             <PaymentElement />
-            <AddressElement options={{ mode: 'shipping' }} />
-            <button type="submit" disabled={!stripe} className='btn2'>
+            <AddressElement options={{ mode: 'shipping' }} onChange={validateForm} /> {/* Appel de la fonction de validation */}
+            <button type="submit" disabled={!stripe || !isFormValid} className='btn2'>
                 Payer
             </button>
         </form>
