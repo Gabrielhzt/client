@@ -20,7 +20,7 @@ const PaymentForm = ({ cart }) => {
         const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
-                return_url: 'manual',
+                return_url: 'https://voltbike.vercel.app/payment-success',
                 shipping: {
                     name: address.name,
                     address: {
@@ -33,22 +33,31 @@ const PaymentForm = ({ cart }) => {
                     },
                 },
             },
-        }).then(({ error }) => {
-            if (!error) {
-                console.log('Paiement confirmé avec succès!');
-                dispatch(validateCart());
-                window.location.href = 'https://voltbike.vercel.app/payment-success';
-            } else {
-                console.error('Erreur lors de la confirmation du paiement:', error);
-            }
-        })
-        .catch(error => {
-            console.error('Erreur lors de la confirmation du paiement:', error);
         });
+
+        if (!error) {
+            console.log('Paiement confirmé avec succès!');
+            dispatch(validateCart());
+        } else {
+            console.error('Erreur lors de la confirmation du paiement:', error);
+        }
+    };
+
+    const handleSubmitWithDispatch = async (event) => {
+        event.preventDefault();
+    
+        try {
+            await handleSubmit(event).then(() => {
+                dispatch(validateCart());
+            })
+        } catch (error) {
+            console.error('Error in handleSubmitWithDispatch:', error);
+            // Handle the error if needed
+        }
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmitWithDispatch}>
             <PaymentElement />
             <AddressElement options={{ mode: 'shipping' }} />
             <button type="submit" disabled={!stripe} className='btn2'>
