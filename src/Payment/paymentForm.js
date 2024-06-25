@@ -33,30 +33,14 @@ const PaymentForm = ({ cart }) => {
                     },
                 },
             },
-        }).then(
-            console.log('test')
-        )
-
-        if (!error) {
-            console.log('Paiement confirmé avec succès!');
-            dispatch(validateCart());
-        } else {
-            console.error('Erreur lors de la confirmation du paiement:', error);
-        }
-    };
-
-    const handleSubmitWithDispatch = async (event) => {
-        event.preventDefault();
-    
-        try {
-            const paymentSuccessful = await handleSubmit(event);
-            console.log(paymentSuccessful)
-            if (paymentSuccessful) {
+        }).then(({ error }) => {
+            if (!error) {
+                console.log('Paiement confirmé avec succès!');
                 dispatch(validateCart());
+            } else {
+                console.error('Erreur lors de la confirmation du paiement:', error);
             }
-        } catch (error) {
-            console.error('Error in handleSubmitWithDispatch:', error);
-        }
+        })
     };
 
     return (
