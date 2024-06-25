@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useStripe, useElements, PaymentElement, AddressElement } from '@stripe/react-stripe-js';
 import { useDispatch } from 'react-redux';
 import { validateCart } from '../features/cart/cartSlice';
