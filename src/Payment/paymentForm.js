@@ -8,32 +8,34 @@ const PaymentForm = ({ cart }) => {
     const elements = useElements();
     const dispatch = useDispatch();
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
 
         if (!stripe || !elements) {
             return;
         }
 
-        const address = elements.getElement(AddressElement);
+        const addressElement = elements.getElement(AddressElement);
+        const addressData = addressElement.getValue().value.address;
 
-        const { error } = await stripe.confirmPayment({
+        stripe.confirmPayment({
             elements,
             confirmParams: {
                 return_url: 'https://voltbike.vercel.app/payment-success',
                 shipping: {
-                    name: address.name,
+                    name: addressData.name,
                     address: {
-                        line1: address.line1,
-                        line2: address.line2,
-                        city: address.city,
-                        state: address.state,
-                        postal_code: address.postal_code,
-                        country: address.country,
+                        line1: addressData.line1,
+                        line2: addressData.line2,
+                        city: addressData.city,
+                        state: addressData.state,
+                        postal_code: addressData.postal_code,
+                        country: addressData.country,
                     },
                 },
             },
-        }).then(({ error }) => {
+        })
+        .then(({ error }) => {
             if (!error) {
                 console.log('Paiement confirmé avec succès!');
                 dispatch(validateCart());
@@ -41,6 +43,9 @@ const PaymentForm = ({ cart }) => {
                 console.error('Erreur lors de la confirmation du paiement:', error);
             }
         })
+        .catch(error => {
+            console.error('Erreur lors de la confirmation du paiement:', error);
+        });
     };
 
     return (
