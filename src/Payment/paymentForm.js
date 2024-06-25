@@ -8,29 +8,28 @@ const PaymentForm = ({ cart }) => {
     const elements = useElements();
     const dispatch = useDispatch();
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         if (!stripe || !elements) {
             return;
         }
 
-        const addressElement = elements.getElement(AddressElement);
-        const addressData = addressElement.getValue().value.address;
+        const address = elements.getElement(AddressElement);
 
-        stripe.confirmPayment({
+        const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
                 return_url: 'https://voltbike.vercel.app/payment-success',
                 shipping: {
-                    name: addressData.name,
+                    name: address.name,
                     address: {
-                        line1: addressData.line1,
-                        line2: addressData.line2,
-                        city: addressData.city,
-                        state: addressData.state,
-                        postal_code: addressData.postal_code,
-                        country: addressData.country,
+                        line1: address.line1,
+                        line2: address.line2,
+                        city: address.city,
+                        state: address.state,
+                        postal_code: address.postal_code,
+                        country: address.country,
                     },
                 },
             },
