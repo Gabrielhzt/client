@@ -17,7 +17,8 @@ const PaymentForm = ({ cart }) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        setError1(null); // Réinitialiser l'erreur à null au début de la soumission
+
+        setError1(null)
 
         if (!stripe || !elements) {
             return;
@@ -43,13 +44,13 @@ const PaymentForm = ({ cart }) => {
                     },
                 },
             });
-
+    
             if (error) {
                 setError1('Error confirming payment');
-                console.error('Error confirming payment:', error);
-            } else {
+            }else {
                 setError1(null);
             }
+
         } catch (error) {
             setError1('Error confirming payment');
             console.error('Error in handleSubmit:', error);
@@ -61,7 +62,7 @@ const PaymentForm = ({ cart }) => {
 
         try {
             await handleSubmit(event);
-            if (!error1) {
+            if (error1 === null) {
                 dispatch(validateCart());
             } else {
                 console.error('Error occurred:', error1);
