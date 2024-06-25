@@ -49,21 +49,8 @@ const PaymentForm = ({ cart }) => {
         }
     };
 
-    const handleSubmitWithDispatch = async (event) => {
-        event.preventDefault();
-
-        try {
-            await handleSubmit(event);
-            if (!error) {
-                dispatch(validateCart());
-            }
-        } catch (error) {
-            console.error('Error in handleSubmitWithDispatch:', error);
-        }
-    };
-
     return (
-        <form onSubmit={handleSubmitWithDispatch}>
+        <form onSubmit={handleSubmit}>
             <PaymentElement />
             <AddressElement options={{ mode: 'shipping' }} />
             <button type="submit" disabled={!stripe} className='btn2'>
