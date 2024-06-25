@@ -11,14 +11,9 @@ const PaymentForm = ({ cart }) => {
     const [isFormValid, setIsFormValid] = useState(false);
 
     useEffect(() => {
-        console.log('error1:', error1);
-        console.log('isFormValid:', isFormValid);
-    }, [error1, isFormValid]);
-
-    const validateForm = () => {
         const address = elements.getElement(AddressElement);
         setIsFormValid(address && address.complete);
-    };
+    }, [elements]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -79,7 +74,7 @@ const PaymentForm = ({ cart }) => {
     return (
         <form onSubmit={handleSubmitWithDispatch}>
             <PaymentElement />
-            <AddressElement options={{ mode: 'shipping' }} onChange={validateForm} />
+            <AddressElement options={{ mode: 'shipping' }} />
             <button type="submit" disabled={!stripe || !isFormValid} className='btn2'>
                 Payer
             </button>
