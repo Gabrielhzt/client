@@ -36,10 +36,7 @@ const PaymentForm = ({ cart }) => {
             },
         });
 
-        if (!error) {
-            console.log('Paiement confirmé avec succès!');
-            dispatch(validateCart());
-        } else {
+        if (error) {
             setError1(true)
             console.error('Erreur lors de la confirmation du paiement:', error);
         }
@@ -55,7 +52,6 @@ const PaymentForm = ({ cart }) => {
             }
         } catch (error) {
             console.error('Error in handleSubmitWithDispatch:', error);
-            // Handle the error if needed
         }
     };
 
