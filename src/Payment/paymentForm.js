@@ -33,15 +33,18 @@ const PaymentForm = ({ cart }) => {
                     },
                 },
             },
-        });
-
-        if (!error) {
-            console.log('Paiement confirmé avec succès!');
-            dispatch(validateCart());
-            window.location.href = 'https://voltbike.vercel.app/payment-success';
-        } else {
+        }).then(({ error }) => {
+            if (!error) {
+                console.log('Paiement confirmé avec succès!');
+                dispatch(validateCart());
+                window.location.href = 'https://voltbike.vercel.app/payment-success';
+            } else {
+                console.error('Erreur lors de la confirmation du paiement:', error);
+            }
+        })
+        .catch(error => {
             console.error('Erreur lors de la confirmation du paiement:', error);
-        }
+        });
     };
 
     return (
