@@ -48,12 +48,12 @@ const PaymentForm = ({ cart }) => {
     
         try {
             const paymentSuccessful = await handleSubmit(event);
+            console.log(paymentSuccessful)
             if (paymentSuccessful) {
-                dispatch(validateCart()); // Dispatch validateCart if handleSubmit succeeded
+                dispatch(validateCart());
             }
         } catch (error) {
             console.error('Error in handleSubmitWithDispatch:', error);
-            // Handle the error if needed
         }
     };
 
