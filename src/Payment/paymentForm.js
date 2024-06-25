@@ -20,7 +20,7 @@ const PaymentForm = ({ cart }) => {
         const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
-                return_url: 'null',
+                return_url: 'manual',
                 shipping: {
                     name: address.name,
                     address: {
