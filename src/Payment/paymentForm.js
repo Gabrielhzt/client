@@ -19,8 +19,8 @@ const PaymentForm = ({ cart }) => {
 
         const { error } = await stripe.confirmPayment({
             elements,
+            redirect: "if_required",
             confirmParams: {
-                redirect: "if_required",
                 shipping: {
                     name: address.name,
                     address: {
