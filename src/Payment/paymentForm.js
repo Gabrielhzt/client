@@ -33,7 +33,9 @@ const PaymentForm = ({ cart }) => {
                     },
                 },
             },
-        }).then(dispatch(validateCart()))
+        }).then(
+            console.log('test')
+        )
 
         if (!error) {
             console.log('Paiement confirmé avec succès!');
