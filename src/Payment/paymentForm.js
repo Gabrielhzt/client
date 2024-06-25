@@ -44,15 +44,7 @@ const PaymentForm = ({ cart }) => {
     };
 
     const handleSubmitWithDispatch = (event) => {
-        handleSubmit(event).then(
-            () => {
-                dispatch(validateCart());
-            }
-        ).catch(
-            error => {
-                console.error('Error in handleSubmitWithDispatch:', error);
-            }
-        );
+        handleSubmit(event)
     };
 
     return (
