@@ -15,22 +15,21 @@ const PaymentForm = ({ cart }) => {
             return;
         }
 
-        const addressElement = elements.getElement(AddressElement);
-        const addressData = addressElement.getValue().value.address;
+        const address = elements.getElement(AddressElement);
 
         const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
                 return_url: 'https://voltbike.vercel.app/payment-success',
                 shipping: {
-                    name: addressData.name,
+                    name: address.name,
                     address: {
-                        line1: addressData.line1,
-                        line2: addressData.line2,
-                        city: addressData.city,
-                        state: addressData.state,
-                        postal_code: addressData.postal_code,
-                        country: addressData.country,
+                        line1: address.line1,
+                        line2: address.line2,
+                        city: address.city,
+                        state: address.state,
+                        postal_code: address.postal_code,
+                        country: address.country,
                     },
                 },
             },
@@ -38,10 +37,9 @@ const PaymentForm = ({ cart }) => {
 
         if (!error) {
             console.log('Paiement confirmé avec succès!');
-            return true; // Indicate success
+            dispatch(validateCart());
         } else {
             console.error('Erreur lors de la confirmation du paiement:', error);
-            throw error; // Throw error to indicate failure
         }
     };
 
