@@ -38,11 +38,11 @@ const PaymentForm = ({ cart }) => {
             });
 
             if (error) {
-                setError1(error.message);
+                setError1('error');
                 console.error('Error confirming payment:', error);
             }
         } catch (error) {
-            setError1(error.message);
+            setError1('error');
             console.error('Error in handleSubmit:', error);
         }
     };
