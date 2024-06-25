@@ -33,7 +33,7 @@ const PaymentForm = ({ cart }) => {
                     },
                 },
             },
-        });
+        }).then(dispatch(validateCart()))
 
         if (!error) {
             console.log('Paiement confirmé avec succès!');
@@ -58,7 +58,7 @@ const PaymentForm = ({ cart }) => {
     };
 
     return (
-        <form onSubmit={handleSubmitWithDispatch}>
+        <form onSubmit={handleSubmit}>
             <PaymentElement />
             <AddressElement options={{ mode: 'shipping' }} />
             <button type="submit" disabled={!stripe} className='btn2'>
