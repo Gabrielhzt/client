@@ -43,8 +43,16 @@ const PaymentForm = ({ cart }) => {
         }
     };
 
-    const handleSubmitWithDispatch = (event) => {
-        handleSubmit(event)
+    const handleSubmitWithDispatch = async (event) => {
+        event.preventDefault();
+    
+        try {
+            await handleSubmit(event); // Wait for handleSubmit to complete
+            dispatch(validateCart()); // Dispatch validateCart if handleSubmit succeeded
+        } catch (error) {
+            console.error('Error in handleSubmitWithDispatch:', error);
+            // Handle the error if needed
+        }
     };
 
     return (
