@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStripe, useElements, PaymentElement, AddressElement } from '@stripe/react-stripe-js';
 import { useDispatch } from 'react-redux';
 import { validateCart } from '../features/cart/cartSlice';
@@ -11,21 +11,18 @@ const PaymentForm = ({ cart }) => {
     const [isFormValid, setIsFormValid] = useState(false);
 
     useEffect(() => {
-        console.log(error1);
-    }, [error1]);
+        console.log('error1:', error1);
+        console.log('isFormValid:', isFormValid);
+    }, [error1, isFormValid]);
 
     const validateForm = () => {
         const address = elements.getElement(AddressElement);
-
-        const isAddressValid = address && address.complete;
-
-        setIsFormValid(isAddressValid);
+        setIsFormValid(address && address.complete);
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        setError1(null)
+        setError1(null); // Réinitialiser l'erreur à null au début de la soumission
 
         if (!stripe || !elements) {
             return;
@@ -53,13 +50,13 @@ const PaymentForm = ({ cart }) => {
             });
 
             if (error) {
-                setError1('error');
+                setError1('Error confirming payment');
                 console.error('Error confirming payment:', error);
             } else {
                 setError1(null);
             }
         } catch (error) {
-            setError1('error');
+            setError1('Error confirming payment');
             console.error('Error in handleSubmit:', error);
         }
     };
@@ -69,8 +66,10 @@ const PaymentForm = ({ cart }) => {
 
         try {
             await handleSubmit(event);
-            if (error1 === null) {
+            if (!error1) {
                 dispatch(validateCart());
+            } else {
+                console.error('Error occurred:', error1);
             }
         } catch (error) {
             console.error('Error in handleSubmitWithDispatch:', error);
@@ -80,7 +79,7 @@ const PaymentForm = ({ cart }) => {
     return (
         <form onSubmit={handleSubmitWithDispatch}>
             <PaymentElement />
-            <AddressElement options={{ mode: 'shipping' }} onChange={validateForm} /> {/* Appel de la fonction de validation */}
+            <AddressElement options={{ mode: 'shipping' }} onChange={validateForm} />
             <button type="submit" disabled={!stripe || !isFormValid} className='btn2'>
                 Payer
             </button>
