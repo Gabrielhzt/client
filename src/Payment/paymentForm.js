@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useStripe, useElements, PaymentElement, AddressElement } from '@stripe/react-stripe-js';
 import { useDispatch } from 'react-redux';
 import { validateCart } from '../features/cart/cartSlice';
@@ -7,6 +7,7 @@ const PaymentForm = ({ cart }) => {
     const stripe = useStripe();
     const elements = useElements();
     const dispatch = useDispatch();
+    const [error, setError] = useState(false);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -39,6 +40,7 @@ const PaymentForm = ({ cart }) => {
             console.log('Paiement confirmé avec succès!');
             dispatch(validateCart());
         } else {
+            setError(true)
             console.error('Erreur lors de la confirmation du paiement:', error);
         }
     };
@@ -48,7 +50,9 @@ const PaymentForm = ({ cart }) => {
     
         try {
             await handleSubmit(event).then(() => {
-                dispatch(validateCart());
+                if(error !== true) {
+                    dispatch(validateCart());
+                }
             })
         } catch (error) {
             console.error('Error in handleSubmitWithDispatch:', error);
