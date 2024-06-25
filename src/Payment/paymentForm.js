@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useStripe, useElements, PaymentElement, AddressElement } from '@stripe/react-stripe-js';
 import { useDispatch } from 'react-redux';
 import { validateCart } from '../features/cart/cartSlice';
@@ -7,6 +7,7 @@ const PaymentForm = ({ cart }) => {
     const stripe = useStripe();
     const elements = useElements();
     const dispatch = useDispatch();
+    const [error, setError] = useState('?')
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -20,7 +21,6 @@ const PaymentForm = ({ cart }) => {
         const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
-                return_url: 'https://voltbike.vercel.app/payment-success',
                 shipping: {
                     name: address.name,
                     address: {
@@ -38,6 +38,7 @@ const PaymentForm = ({ cart }) => {
             if (!error) {
                 console.log('Paiement confirmé avec succès!');
                 dispatch(validateCart());
+                window.location.href = 'https://voltbike.vercel.app/payment-success';
             } else {
                 console.error('Erreur lors de la confirmation du paiement:', error);
             }
