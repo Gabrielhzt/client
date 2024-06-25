@@ -52,6 +52,7 @@ const PaymentForm = ({ cart }) => {
 
         try {
             await handleSubmit(event);
+            console.log(error1)
             if (error1 === 'null') {
                 dispatch(validateCart());
             }
