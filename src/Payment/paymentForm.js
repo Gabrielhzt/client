@@ -42,7 +42,7 @@ const PaymentForm = ({ cart }) => {
                 console.log(error1)
                 console.error('Error confirming payment:', error);
             }
-        } catch {
+        } catch (error) {
             setError1('error');
             console.log(error1)
             console.error('Error in handleSubmit:', error);
