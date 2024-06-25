@@ -7,7 +7,7 @@ const PaymentForm = ({ cart }) => {
     const stripe = useStripe();
     const elements = useElements();
     const dispatch = useDispatch();
-    const [error1, setError1] = useState(false);
+    const [error, setError] = useState(null);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -18,36 +18,43 @@ const PaymentForm = ({ cart }) => {
 
         const address = elements.getElement(AddressElement);
 
-        const { error } = await stripe.confirmPayment({
-            elements,
-            confirmParams: {
-                return_url: 'https://voltbike.vercel.app/payment-success',
-                shipping: {
-                    name: address.name,
-                    address: {
-                        line1: address.line1,
-                        line2: address.line2,
-                        city: address.city,
-                        state: address.state,
-                        postal_code: address.postal_code,
-                        country: address.country,
+        try {
+            const { error } = await stripe.confirmPayment({
+                elements,
+                confirmParams: {
+                    return_url: 'https://voltbike.vercel.app/payment-success',
+                    shipping: {
+                        name: address.name,
+                        address: {
+                            line1: address.line1,
+                            line2: address.line2,
+                            city: address.city,
+                            state: address.state,
+                            postal_code: address.postal_code,
+                            country: address.country,
+                        },
                     },
                 },
-            },
-        });
+            });
 
-        if (error) {
-            setError1(true)
-            console.error('Erreur lors de la confirmation du paiement:', error);
+            if (error) {
+                setError(error.message);
+                console.error('Error confirming payment:', error);
+            } else {
+                setError(null);
+            }
+        } catch (error) {
+            setError(error.message);
+            console.error('Error in handleSubmit:', error);
         }
     };
 
     const handleSubmitWithDispatch = async (event) => {
         event.preventDefault();
-    
+
         try {
-            await handleSubmit(event)
-            if(error1 !== true) {
+            await handleSubmit(event);
+            if (!error) {
                 dispatch(validateCart());
             }
         } catch (error) {
