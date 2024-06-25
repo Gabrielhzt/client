@@ -15,21 +15,22 @@ const PaymentForm = ({ cart }) => {
             return;
         }
 
-        const address = elements.getElement(AddressElement);
+        const addressElement = elements.getElement(AddressElement);
+        const addressData = addressElement.getValue().value.address;
 
         const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
                 return_url: 'https://voltbike.vercel.app/payment-success',
                 shipping: {
-                    name: address.name,
+                    name: addressData.name,
                     address: {
-                        line1: address.line1,
-                        line2: address.line2,
-                        city: address.city,
-                        state: address.state,
-                        postal_code: address.postal_code,
-                        country: address.country,
+                        line1: addressData.line1,
+                        line2: addressData.line2,
+                        city: addressData.city,
+                        state: addressData.state,
+                        postal_code: addressData.postal_code,
+                        country: addressData.country,
                     },
                 },
             },
@@ -37,9 +38,10 @@ const PaymentForm = ({ cart }) => {
 
         if (!error) {
             console.log('Paiement confirmé avec succès!');
-            dispatch(validateCart());
+            return true; // Indicate success
         } else {
             console.error('Erreur lors de la confirmation du paiement:', error);
+            throw error; // Throw error to indicate failure
         }
     };
 
@@ -47,8 +49,10 @@ const PaymentForm = ({ cart }) => {
         event.preventDefault();
     
         try {
-            await handleSubmit(event); // Wait for handleSubmit to complete
-            dispatch(validateCart()); // Dispatch validateCart if handleSubmit succeeded
+            const paymentSuccessful = await handleSubmit(event);
+            if (paymentSuccessful) {
+                dispatch(validateCart()); // Dispatch validateCart if handleSubmit succeeded
+            }
         } catch (error) {
             console.error('Error in handleSubmitWithDispatch:', error);
             // Handle the error if needed
