@@ -45,6 +45,9 @@ const PaymentForm = ({ cart }) => {
                 setError1('error');
                 console.log(error1)
                 console.error('Error confirming payment:', error);
+            }else {
+                setError1('good');
+                console.log(error1)
             }
         } catch (error) {
             setError1('error');
@@ -59,7 +62,7 @@ const PaymentForm = ({ cart }) => {
         try {
             await handleSubmit(event);
             console.log(error1)
-            if (error1 === null) {
+            if (error1 === 'good') {
                 dispatch(validateCart());
             }
         } catch (error) {
