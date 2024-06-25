@@ -9,10 +9,6 @@ const PaymentForm = ({ cart }) => {
     const dispatch = useDispatch();
     const [error1, setError1] = useState(null);
 
-    useEffect(() => {
-        console.log(error1)
-    }, [error1, handleSubmit, handleSubmitWithDispatch]);
-
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -69,6 +65,10 @@ const PaymentForm = ({ cart }) => {
             console.error('Error in handleSubmitWithDispatch:', error);
         }
     };
+
+    useEffect(() => {
+        console.log(error1)
+    }, [error1, handleSubmit, handleSubmitWithDispatch]);
 
     return (
         <form onSubmit={handleSubmitWithDispatch}>
