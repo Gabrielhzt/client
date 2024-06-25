@@ -7,7 +7,7 @@ const PaymentForm = ({ cart }) => {
     const stripe = useStripe();
     const elements = useElements();
     const dispatch = useDispatch();
-    const [error1, setError1] = useState('null');
+    const [error1, setError1] = useState(null);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -39,10 +39,12 @@ const PaymentForm = ({ cart }) => {
 
             if (error) {
                 setError1('error');
+                console.log(error1)
                 console.error('Error confirming payment:', error);
             }
-        } catch (error) {
+        } catch {
             setError1('error');
+            console.log(error1)
             console.error('Error in handleSubmit:', error);
         }
     };
@@ -53,7 +55,7 @@ const PaymentForm = ({ cart }) => {
         try {
             await handleSubmit(event);
             console.log(error1)
-            if (error1 === 'null') {
+            if (error1 === null) {
                 dispatch(validateCart());
             }
         } catch (error) {
