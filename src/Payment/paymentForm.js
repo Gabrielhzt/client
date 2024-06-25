@@ -9,6 +9,10 @@ const PaymentForm = ({ cart }) => {
     const dispatch = useDispatch();
     const [error1, setError1] = useState(null);
 
+    useEffect(() => {
+        console.log(error1);
+    }, [error1]);
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
