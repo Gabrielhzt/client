@@ -7,7 +7,7 @@ const PaymentForm = ({ cart }) => {
     const stripe = useStripe();
     const elements = useElements();
     const dispatch = useDispatch();
-    const [error, setError] = useState(null);
+    const [error1, setError1] = useState('null');
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -38,19 +38,30 @@ const PaymentForm = ({ cart }) => {
             });
 
             if (error) {
-                setError(error.message);
+                setError1(error.message);
                 console.error('Error confirming payment:', error);
-            } else {
-                setError(null);
             }
         } catch (error) {
-            setError(error.message);
+            setError1(error.message);
             console.error('Error in handleSubmit:', error);
         }
     };
 
+    const handleSubmitWithDispatch = async (event) => {
+        event.preventDefault();
+
+        try {
+            await handleSubmit(event);
+            if (error1 === 'null') {
+                dispatch(validateCart());
+            }
+        } catch (error) {
+            console.error('Error in handleSubmitWithDispatch:', error);
+        }
+    };
+
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmitWithDispatch}>
             <PaymentElement />
             <AddressElement options={{ mode: 'shipping' }} />
             <button type="submit" disabled={!stripe} className='btn2'>
