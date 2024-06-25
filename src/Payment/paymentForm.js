@@ -11,9 +11,8 @@ const PaymentForm = ({ cart }) => {
     const [isFormValid, setIsFormValid] = useState(false);
 
     useEffect(() => {
-        const address = elements.getElement(AddressElement);
-        setIsFormValid(address && address.complete);
-    }, [elements]);
+        console.log(error1)
+    }, [error1]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
